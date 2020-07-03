@@ -12,7 +12,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         // Example of a call to a native method
-        sample_text.text = stringFromJNI()
+        sample_text.text = getStrFromC("This is a string from java.");
     }
 
     /**
@@ -20,6 +20,8 @@ class MainActivity : AppCompatActivity() {
      * which is packaged with this application.
      */
     external fun stringFromJNI(): String
+
+    external fun getStrFromC(strFromJava: String): String
 
     companion object {
         // Used to load the 'native-lib' library on application startup.

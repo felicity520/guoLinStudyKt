@@ -4,4 +4,5 @@
     <color name="back">#857C00</color>
     <color name="colorPrimaryDark">#06C3A9</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="black">#2B2B2B</color>
 </resources>
