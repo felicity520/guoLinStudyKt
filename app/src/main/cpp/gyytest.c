@@ -17,6 +17,9 @@ Java_com_gyy_guoLinKt_activity_MainActivity_getStrFromC(
         jobject this, jstring jstring1) {
 
     const char *chars = (*env)->GetStringUTFChars(env, jstring1, NULL);
+    //注意：Get之后一定要判空，因为Jni报错了之后还是会继续往下走
+    if (chars == NULL)
+        return NULL;
 
     jint jstrLength = (*env)->GetStringUTFLength(env, jstring1);
 
