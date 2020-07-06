@@ -8,13 +8,16 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.content.res.Configuration
 import android.content.res.Resources
+import android.os.Build
 import android.os.Bundle
+import android.text.Editable
 import android.util.DisplayMetrics
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gyy.guoLinKt.R
 import com.gyy.guoLinKt.adapter.MsgAdapter
@@ -22,6 +25,10 @@ import com.gyy.guoLinKt.bean.Fruit
 import com.gyy.guoLinKt.bean.Msg
 import com.gyy.guoLinKt.kotlin.Util
 import kotlinx.android.synthetic.main.activity_test.*
+import java.io.BufferedReader
+import java.io.BufferedWriter
+import java.io.InputStreamReader
+import java.io.OutputStreamWriter
 
 
 class TestActivity : BaseActivity(), View.OnClickListener {
@@ -55,6 +62,7 @@ class TestActivity : BaseActivity(), View.OnClickListener {
 //    lateinit 延迟初始化
 //    private var msgAdapter: MsgAdapter? = null
 
+    @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_test)
@@ -74,7 +82,28 @@ class TestActivity : BaseActivity(), View.OnClickListener {
 //        studyFragment()
         startBrocast()
         sendMyBrocast()
+        val inputText1: String = loadContent()
+        if (!inputText1.isEmpty()) {
+            editText1.setText(inputText1)
+            editText1.setSelection(inputText1.length)
+            Toast.makeText(this, "文件读取成功$inputText1", Toast.LENGTH_SHORT).show()
+        }
+
     }
+
+    private fun loadContent(): String {
+        val str = StringBuilder()
+        val in1 = openFileInput("gyyfile")
+        val reader = BufferedReader(InputStreamReader(in1))
+        reader.use {
+            //forEachLine是kt的内置函数，会将读取到的内容回调到lambda表达式中，注意it是读取的String
+            reader.forEachLine {
+                str.append(it)
+            }
+        }
+        return str.toString()
+    }
+
 
     private fun sendMyBrocast() {
 //        val btn_send: Button = findViewById(R.id.btn_send) //不用这行也可以
@@ -105,6 +134,7 @@ class TestActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     private fun getScreenData() {
         val resources: Resources = this.resources
         val dm: DisplayMetrics = resources.getDisplayMetrics()
@@ -280,7 +310,21 @@ class TestActivity : BaseActivity(), View.OnClickListener {
         super.onDestroy()
 //        ActivityCollector.finishAll()
         unregisterReceiver(brocast)
+
+        //在程序销毁的时候获取编辑的内容，并且保存
+        val inputText = editText1.text.toString()
+        saveEditContent(inputText)
     }
+
+    private fun saveEditContent(inputText: String) {
+        val out = openFileOutput("gyyfile", Context.MODE_PRIVATE)
+        val writer = BufferedWriter(OutputStreamWriter(out))
+        //use会自动将外层的流关闭
+        writer.use {
+            it.write(inputText)
+        }
+    }
+
 
     override fun onClick(v: View?) {
         when (v?.id) {

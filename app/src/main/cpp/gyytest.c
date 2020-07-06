@@ -32,8 +32,8 @@ Java_com_gyy_guoLinKt_activity_MainActivity_getStrFromC(
 
     char *buff = (char *) malloc(jstrLength * sizeof(jchar));
     //置空，NULL相当于填入0
-    memset(buff, NULL, jstrLength);
-//    memset(buff, 0, jstrLength);
+    memset(buff, 0, jstrLength);
+//    memset(buff, NULL, jstrLength);
 
     //C中char占一个字节，jchar占两个字节
     logd("jstrLength * sizeof(jchar) = %d", jstrLength * sizeof(jchar));
