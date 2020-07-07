@@ -23,6 +23,7 @@ import com.gyy.guoLinKt.R
 import com.gyy.guoLinKt.adapter.MsgAdapter
 import com.gyy.guoLinKt.bean.Fruit
 import com.gyy.guoLinKt.bean.Msg
+import com.gyy.guoLinKt.bean.MyDataBaseHelper
 import com.gyy.guoLinKt.kotlin.Util
 import kotlinx.android.synthetic.main.activity_test.*
 import java.io.BufferedReader
@@ -88,7 +89,15 @@ class TestActivity : BaseActivity(), View.OnClickListener {
             editText1.setSelection(inputText1.length)
             Toast.makeText(this, "文件读取成功$inputText1", Toast.LENGTH_SHORT).show()
         }
+        studyDatabase()
 
+    }
+
+    private fun studyDatabase() {
+        val mydatabase = MyDataBaseHelper(this, "BookStore.db", null, 1)
+        btn_creatDatabase.setOnClickListener {
+            mydatabase.writableDatabase
+        }
     }
 
     private fun loadContent(): String {

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     tools:context=".activity.TestActivity">
 
     <!--直接导入一个布局。但是并不能监听事件-->
@@ -133,4 +133,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="请输入" />
+
+    <Button
+        android:id="@+id/btn_creatDatabase"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="创建数据库" />
 </LinearLayout>
