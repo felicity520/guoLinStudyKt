@@ -126,8 +126,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="发送广播"
-        android:textAllCaps="false"
-        android:visibility="gone" />
+        android:textAllCaps="false" />
 
     <EditText
         android:id="@+id/editText1"
