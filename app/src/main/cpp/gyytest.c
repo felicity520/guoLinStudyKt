@@ -384,13 +384,21 @@ Java_com_gyy_guoLinKt_activity_MainActivity_createAndCallJavaInstanceMethod(
 
     //2.获取构造方法的id。返回值是void 无形参
     jmethodID jmethodId = (*env)->GetMethodID(env, jclass1, "<init>", "()V");
+    if (jmethodId == NULL)
+        return;
 
     //3.利用NewObject()函数构建一个Java对象
     jobject jobject1 = (*env)->NewObject(env, jclass1, jmethodId);
+    if (jobject1 == NULL)
+        return;
 
     //4.获取setAge和getAge方法: ()V V表示void，形参一定要写()，不可以省略
     jmethodID setAgeId = (*env)->GetMethodID(env, jclass1, "setAge", "(I)V");
     jmethodID getAgeId = (*env)->GetMethodID(env, jclass1, "getAge", "()I");
+    if (setAgeId == NULL)
+        return;
+    if (getAgeId == NULL)
+        return;
 
     //5.设置年龄，返回是void类型的。调用实例方法使用CallXXMethod函数,XX表示返回数据类型
     (*env)->CallVoidMethod(env, jobject1, setAgeId, 12);
