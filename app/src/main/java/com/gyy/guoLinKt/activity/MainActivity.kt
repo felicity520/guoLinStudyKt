@@ -61,6 +61,9 @@ class MainActivity : AppCompatActivity() {
                 )
             }
         }
+
+        callJavaStaticMethod()
+        createAndCallJavaInstanceMethod()
     }
 
     /**
@@ -85,6 +88,13 @@ class MainActivity : AppCompatActivity() {
     external fun create2DArray(size: Int): Array<IntArray>
 
     external fun create2DArrayTwo(size: Int): Array<IntArray>
+
+    //Unit相当于返回“Void”，在Kotlin中，返回值为void是可以省略不写的。
+//    external fun callJavaStaticMethod(): UInt
+
+    external fun callJavaStaticMethod()
+
+    external fun createAndCallJavaInstanceMethod()
 
     companion object {
         const val TAG = "MainActivity"

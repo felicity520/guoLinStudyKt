@@ -5,6 +5,7 @@
 
 /***
  * 不懂的地方：https://www.cnblogs.com/bxynlbyx/p/11729604.html
+ * 参考文章：https://mp.weixin.qq.com/s/nG6cxGVk1tCI9jNjghdw0g
  * 将传入的String再拼接一个String返回
  * @param env
  * @param this
@@ -316,13 +317,92 @@ Java_com_gyy_guoLinKt_activity_MainActivity_create2DArrayTwo(
         //给一个jobjectArray设置数据 第i索引,数据位intArr
         (*env)->SetObjectArrayElement(env, result, i, intArr);
         //及时移除引用
+        //注意：在JNI中,只要是jobject的子类就属于引用变量,会占用引用表的空间，要及时移除引用
         (*env)->DeleteLocalRef(env, intArr);
     }
 
     return result;
-
 }
 
+/***
+ * native调用java的静态方法
+ * @param env
+ * @param this
+ */
+JNIEXPORT void JNICALL
+Java_com_gyy_guoLinKt_activity_MainActivity_callJavaStaticMethod(
+        JNIEnv *env,
+        jobject this) {
+
+    //1. 从classpath路径下搜索MyJNIClass这个类,并返回该类的Class对象
+    jclass jclass1 = (*env)->FindClass(env, "com/gyy/guoLinKt/bean/MyJNIClass");
+    if (jclass1 == NULL)
+        return;
+
+    //2. 从clazz类中查找getDes方法 得到这个静态方法的方法id  (形参参数类型列表)返回值
+    jmethodID jmethodId = (*env)->GetStaticMethodID(env, jclass1, "getDes",
+                                                    "(Ljava/lang/String;)Ljava/lang/String;");
+    if (jmethodId == NULL)
+        return;
+
+    //3. 构建入参,调用static方法,获取返回值
+    jstring jstring1 = (*env)->NewStringUTF(env, "你好gyy");
+    if (jstring1 == NULL)
+        return;
+
+    //4.调用静态方法拿到返回值
+    jstring jstring2 = (jstring) (*env)->CallStaticObjectMethod(env, jclass1, jmethodId, jstring1);
+    if (jstring2 == NULL)
+        return;
+
+    //注意：不可直接打印jstring，需要转换成char*类型
+    char *result = (char *) ((*env)->GetStringUTFChars(env, jstring2, 0));
+    //D/gyytest: result = 传入的字符串长度是 :5  内容是 : 你好gyy
+    logd("result = %s", result);
+
+    //5. 移除局部引用(凡是 jobject{} 对象的子类，都需要移除局部引用，否则JVM引用表会溢出)
+    //需要我们手动申请和释放内存(new/find->delete,malloc->free)
+    (*env)->DeleteLocalRef(env, jclass1);
+    (*env)->DeleteLocalRef(env, jstring1);
+    (*env)->DeleteLocalRef(env, jstring2);
+}
+
+/***
+ * native调用Java实例方法
+ * @param env
+ * @param this
+ */
+JNIEXPORT void JNICALL
+Java_com_gyy_guoLinKt_activity_MainActivity_createAndCallJavaInstanceMethod(
+        JNIEnv *env,
+        jobject this) {
+
+    //1. 从classpath路径下搜索MyJNIClass这个类,并返回该类的Class对象
+    jclass jclass1 = (*env)->FindClass(env, "com/gyy/guoLinKt/bean/MyJNIClass");
+    if (jclass1 == NULL)
+        return;
+
+    //2.获取构造方法的id。返回值是void 无形参
+    jmethodID jmethodId = (*env)->GetMethodID(env, jclass1, "<init>", "()V");
+
+    //3.利用NewObject()函数构建一个Java对象
+    jobject jobject1 = (*env)->NewObject(env, jclass1, jmethodId);
+
+    //4.获取setAge和getAge方法: ()V V表示void，形参一定要写()，不可以省略
+    jmethodID setAgeId = (*env)->GetMethodID(env, jclass1, "setAge", "(I)V");
+    jmethodID getAgeId = (*env)->GetMethodID(env, jclass1, "getAge", "()I");
+
+    //5.设置年龄，返回是void类型的。调用实例方法使用CallXXMethod函数,XX表示返回数据类型
+    (*env)->CallVoidMethod(env, jobject1, setAgeId, 12);
+
+    //6.拿到返回的年龄
+    jint jint1 = (*env)->CallIntMethod(env, jobject1, getAgeId);
+    logd("jint1 = %d", jint1);
+
+    //7.移除局部引用
+    (*env)->DeleteLocalRef(env, jclass1);
+    (*env)->DeleteLocalRef(env, jobject1);
+}
 
 
 

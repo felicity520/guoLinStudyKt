@@ -121,17 +121,17 @@
         android:visibility="gone" />
 
     <Button
-        android:visibility="gone"
         android:id="@+id/btn_send"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="发送广播"
-        android:textAllCaps="false" />
+        android:textAllCaps="false"
+        android:visibility="gone" />
 
     <EditText
-        android:hint="请输入"
         android:id="@+id/editText1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:hint="请输入" />
 </LinearLayout>
