@@ -83,14 +83,18 @@ class TestActivity : BaseActivity(), View.OnClickListener {
 //        studyFragment()
         startBrocast()
         sendMyBrocast()
+        //studyLoadFile()
+        studyDatabase()
+
+    }
+
+    private fun studyLoadFile() {
         val inputText1: String = loadContent()
         if (!inputText1.isEmpty()) {
             editText1.setText(inputText1)
             editText1.setSelection(inputText1.length)
             Toast.makeText(this, "文件读取成功$inputText1", Toast.LENGTH_SHORT).show()
         }
-        studyDatabase()
-
     }
 
     private fun studyDatabase() {
