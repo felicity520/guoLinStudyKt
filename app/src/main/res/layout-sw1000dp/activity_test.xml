@@ -141,13 +141,15 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="发送广播"
-        android:textAllCaps="false" />
+        android:textAllCaps="false"
+        android:visibility="gone" />
 
     <EditText
         android:id="@+id/editText1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="请输入" />
+        android:hint="请输入"
+        android:visibility="gone" />
 
     <Button
         android:id="@+id/btn_creatDatabase"
@@ -155,5 +157,40 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="创建数据库" />
+
+    <Button
+        android:id="@+id/btn_adddata"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="插入数据" />
+
+    <Button
+        android:id="@+id/btn_upgradedata"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="更新数据" />
+
+    <Button
+        android:id="@+id/btn_deletedata"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="删除数据" />
+
+    <Button
+        android:id="@+id/btn_querydata"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="查询数据" />
+
+    <Button
+        android:id="@+id/btn_replacedata"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="覆盖数据" />
 
 </LinearLayout>

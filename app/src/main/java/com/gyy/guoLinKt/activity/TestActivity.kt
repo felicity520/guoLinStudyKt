@@ -2,10 +2,7 @@ package com.gyy.guoLinKt.activity
 
 import android.app.Activity
 import android.app.AlertDialog
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
+import android.content.*
 import android.content.res.Configuration
 import android.content.res.Resources
 import android.os.Build
@@ -30,6 +27,7 @@ import java.io.BufferedReader
 import java.io.BufferedWriter
 import java.io.InputStreamReader
 import java.io.OutputStreamWriter
+import java.lang.Exception
 
 
 class TestActivity : BaseActivity(), View.OnClickListener {
@@ -97,10 +95,136 @@ class TestActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
+
+    fun cvOf(vararg pairs: Pair<String, Any?>): ContentValues {
+        val cv = ContentValues()
+        for (pair in pairs) {
+            //固定写法，first拿到的就是key
+            val key = pair.first
+            val value = pair.second
+            when (value) {
+                is Int -> cv.put(key, value)
+                is Long -> cv.put(key, value)
+                is Short -> cv.put(key, value)
+                is Float -> cv.put(key, value)
+                is Double -> cv.put(key, value)
+                is Boolean -> cv.put(key, value)
+                is String -> cv.put(key, value)
+                is Byte -> cv.put(key, value)
+                is ByteArray -> cv.put(key, value)
+                null -> cv.putNull(null)
+            }
+        }
+        return cv
+    }
+
+    fun cvOf1(vararg pairs: Pair<String, Any?>) = ContentValues().apply {
+        for (pair in pairs) {
+            //固定写法，first拿到的就是key
+            val key = pair.first
+            val value = pair.second
+            when (value) {
+                is Int -> put(key, value)
+                is Long -> put(key, value)
+                is Short -> put(key, value)
+                is Float -> put(key, value)
+                is Double -> put(key, value)
+                is Boolean -> put(key, value)
+                is String -> put(key, value)
+                is Byte -> put(key, value)
+                is ByteArray -> put(key, value)
+                null -> putNull(null)
+            }
+        }
+    }
+
+
     private fun studyDatabase() {
-        val mydatabase = MyDataBaseHelper(this, "BookStore.db", null, 1)
+        val mydatabase = MyDataBaseHelper(this, "BookStore.db", 7)
         btn_creatDatabase.setOnClickListener {
+            //第一次创建会自动调用onCreate
             mydatabase.writableDatabase
+        }
+        //"author text," +
+        //"price real," +
+        //"pages integer," +
+        //"names text)"
+        btn_adddata.setOnClickListener {
+            val db = mydatabase.writableDatabase
+            val value1 = ContentValues().apply {
+                put("author", "gyy1")
+                put("price", 100.01)
+                put("pages", 51)
+                put("names", "names 111")
+            }
+
+            val value3 = cvOf("names" to "names 225252", "pages" to 525)
+            db.insert("Book", null, value3)
+
+            val value4 = cvOf1("names" to "names 6666", "pages" to 555)
+            db.insert("Book", null, value4)
+
+            db.insert("Book", null, value1)
+            val value2 = ContentValues().apply {
+                put("author", "gyy2")
+                put("price", 100.02)
+                put("pages", 52)
+                put("names", "names 222")
+            }
+            db.insert("Book", null, value2)
+        }
+        btn_upgradedata.setOnClickListener {
+            val db = mydatabase.writableDatabase
+            val value3 = ContentValues()
+            value3.put("price", 50.01)
+            //注意where筛选的时候要写 = ? SQLite语言写起来好累，得记语法
+            db.update("Book", value3, "author = ?", arrayOf("gyy1"))
+        }
+        btn_deletedata.setOnClickListener {
+            val db = mydatabase.writableDatabase
+//            db.delete("Book", "pages = ?", arrayOf("51"))
+            db.delete("Book", null, null)
+        }
+        btn_querydata.setOnClickListener {
+            val db = mydatabase.writableDatabase
+            val cursor = db.query("Book", null, null, null, null, null, null)
+            if (cursor.moveToFirst()) {
+                do {
+                    val index = cursor.getColumnIndex("author")
+                    val author = cursor.getString(cursor.getColumnIndex("author"))
+                    val pages = cursor.getInt(cursor.getColumnIndex("pages"))
+                    val names = cursor.getString(cursor.getColumnIndex("names"))
+                    val price = cursor.getFloat(cursor.getColumnIndex("price"))
+                    Log.e(
+                        TAG,
+                        "index is $index,author is $author,pages is $pages,names is $names,price is $price"
+                    )
+
+                } while (cursor.moveToNext())
+            }
+            cursor.close()
+        }
+        btn_replacedata.setOnClickListener {
+            val db = mydatabase.writableDatabase
+            db.beginTransaction()
+            try {
+                db.delete("Book", null, null)
+//                if (true) {
+//                    throw NullPointerException()
+//                }
+                val value2 = ContentValues().apply {
+                    put("author", "gyy333")
+                    put("price", 100.03)
+                    put("pages", 53)
+                    put("names", "names 333")
+                }
+                db.insert("Book", null, value2)
+                db.setTransactionSuccessful()
+            } catch (e: Exception) {
+                e.printStackTrace()
+            } finally {
+                db.endTransaction()
+            }
         }
     }
 

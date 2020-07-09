@@ -13,3 +13,7 @@
 .externalNativeBuild
 .cxx
 .idea/inspectionProfiles/
+.idea/codeStyles/Project.xml
+.idea/dbnavigator.xml
+.idea/misc.xml
+.idea/*
