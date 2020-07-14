@@ -193,4 +193,17 @@
         android:gravity="center"
         android:text="覆盖数据" />
 
+    <Button
+        android:id="@+id/btn_makecall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="拨打10086"
+        android:visibility="gone" />
+
+    <ListView
+        android:id="@+id/listView_contacts"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 </LinearLayout>

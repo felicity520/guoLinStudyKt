@@ -1,20 +1,26 @@
 package com.gyy.guoLinKt.activity
 
+import android.Manifest
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.*
+import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.content.res.Resources
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.text.Editable
+import android.provider.ContactsContract
 import android.util.DisplayMetrics
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gyy.guoLinKt.R
 import com.gyy.guoLinKt.adapter.MsgAdapter
@@ -31,6 +37,10 @@ import java.lang.Exception
 
 
 class TestActivity : BaseActivity(), View.OnClickListener {
+
+    val contactsdata = ArrayList<String>()
+
+    lateinit var contactsAdapter: ArrayAdapter<String>
 
 //    val brocast = TimeBrocast()
 
@@ -83,7 +93,94 @@ class TestActivity : BaseActivity(), View.OnClickListener {
         sendMyBrocast()
         //studyLoadFile()
         studyDatabase()
+        studyContentProvider();
 
+    }
+
+    private fun studyContentProvider() {
+        btn_makecall.setOnClickListener {
+            if (ContextCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.CALL_PHONE
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf("android.permission.CALL_PHONE"),
+                    0
+                )
+            } else {
+                callPhone()
+            }
+        }
+
+        //加载手机联系人的电话和姓名
+        //请注意样式不要写错了
+        contactsAdapter =
+            ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, contactsdata)
+        listView_contacts.adapter = contactsAdapter
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.READ_CONTACTS
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(this, arrayOf("android.permission.READ_CONTACTS"), 1)
+        } else {
+            readContacts()
+        }
+    }
+
+    private fun readContacts() {
+        //注意注意：小写的contentResolver相当于getContentResolver()
+        contentResolver.query(
+            ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+            null,
+            null,
+            null,
+            null
+        )?.apply {
+            while (moveToNext()) {
+                //获取联系人的名字
+                val name =
+                    getString(this.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME))
+                //获取联系人的电话
+                val number =
+                    getString(this.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
+                contactsdata.add("$name\n$number")
+            }
+            contactsAdapter.notifyDataSetChanged()
+            close()
+        }
+    }
+
+    private fun callPhone() {
+        val intent = Intent(Intent.ACTION_CALL)
+        intent.setData(Uri.parse("tel:10086"))
+        startActivity(intent)
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when (requestCode) {
+            0 -> {
+                if (!grantResults.isEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    callPhone()
+                } else {
+                    Toast.makeText(this, "用户拒绝了权限", Toast.LENGTH_SHORT).show()
+                }
+            }
+            1 -> {
+                if (!grantResults.isEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    readContacts()
+                } else {
+                    Toast.makeText(this, "用户拒绝了权限嘤嘤嘤", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
     }
 
     private fun studyLoadFile() {
