@@ -4,7 +4,6 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
-import android.widget.Toast
 
 class MyDataBaseHelper(
     context: Context?,
@@ -32,7 +31,7 @@ class MyDataBaseHelper(
     override fun onCreate(p0: SQLiteDatabase?) {
         p0?.execSQL(creatBook)
         //如果新用户第一次安装则创建Category表
-        p0?.execSQL(creatCategory)
+//        p0?.execSQL(creatCategory)
         Log.d(TAG, "数据库创建成功")
     }
 
@@ -44,22 +43,22 @@ class MyDataBaseHelper(
 //        onCreate(p0)
         Log.d(TAG, "数据库升级成功")
 
-        if (p1 <= 1) {
-            p0?.execSQL(creatCategory)
-            Log.d(TAG, "数据库从$p1 到 $p2 升级成功")
-        }
-        if (p1 <= 2) {
-            //ALTER TABLE table_name
-            //ADD column_name datatype
-            p0?.execSQL("alter table Book add column category_id integer")
-            Log.d(TAG, "数据库从$p1 到 $p2 升级成功")
-        }
-        if (p1 <= 6) {
-            //ALTER TABLE table_name
-            //ADD column_name datatype
-            p0?.execSQL("alter table Book add column category_name integer")
-            Log.d(TAG, "数据库从$p1 到 $p2 升级成功")
-        }
+//        if (p1 <= 1) {
+//            p0?.execSQL(creatCategory)
+//            Log.d(TAG, "数据库从$p1 到 $p2 升级成功")
+//        }
+//        if (p1 <= 2) {
+//            //ALTER TABLE table_name
+//            //ADD column_name datatype
+//            p0?.execSQL("alter table Book add column category_id integer")
+//            Log.d(TAG, "数据库从$p1 到 $p2 升级成功")
+//        }
+//        if (p1 <= 6) {
+//            //ALTER TABLE table_name
+//            //ADD column_name datatype
+//            p0?.execSQL("alter table Book add column category_name integer")
+//            Log.d(TAG, "数据库从$p1 到 $p2 升级成功")
+//        }
     }
 
     companion object {

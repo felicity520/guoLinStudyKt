@@ -21,6 +21,7 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.contentValuesOf
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gyy.guoLinKt.R
 import com.gyy.guoLinKt.adapter.MsgAdapter
@@ -93,8 +94,58 @@ class TestActivity : BaseActivity(), View.OnClickListener {
         sendMyBrocast()
         //studyLoadFile()
         studyDatabase()
-        studyContentProvider();
+        studyContentProvider()
+        accessConPro()
 
+    }
+
+    /***
+     * 这是另外一个工程的代码，主工程有一个可以共享的数据库，然后通过DatabaseProvider供其他app进行访问
+     * 这个方法就是其他app通过CP来访问的代码。为了防止找不到，所以copy到了这里
+     */
+    private fun accessConPro() {
+//var bookid: String? = null
+//        btn_adddata.setOnClickListener {
+//            val uri = Uri.parse("content://com.gyy.guoLinKt/book")
+//            val values = contentValuesOf(
+//                "names" to "names 225252",
+//                "pages" to 525,
+//                "price" to 0,
+//                "author" to "gyy123"
+//            )
+//            val uri1 = contentResolver.insert(uri, values)
+//            //注意：uri没有非空时可以这样写 uri.pathSegments[1]
+//            //有非空判断时，要这样写，uri?.pathSegments?.get(1)
+//            bookid = uri1?.pathSegments?.get(1)
+//            Log.e("test1111", "btn_adddata bookid = $bookid")
+//        }
+//
+//        btn_upgradedata.setOnClickListener {
+//            val values1 = contentValuesOf("names" to "zhouzhnegliang")
+//            val uri1 = Uri.parse("content://com.gyy.guoLinKt/book/$bookid")
+//            contentResolver.update(uri1, values1, "id = ?", arrayOf(bookid))
+//            Log.e("test1111", "btn_upgradedata uri1 = $uri1")
+//        }
+//        btn_deletedata.setOnClickListener {
+//            val uri1 = Uri.parse("content://com.gyy.guoLinKt/book/$bookid")
+//            contentResolver.delete(uri1, "id = ?", arrayOf(bookid))
+//            Log.e("test1111", "btn_deletedata uri1 = $uri1")
+//        }
+//        btn_querydata.setOnClickListener {
+//            val uri = Uri.parse("content://com.gyy.guoLinKt/book")
+//            Log.e("test1111", "btn_querydata uri = $uri")
+//            contentResolver.query(uri, null, null, null, null)?.apply {
+//                while (moveToNext()) {
+//                    val name = getString(getColumnIndex("names"))
+//                    val pages = getInt(getColumnIndex("pages"))
+//                    val price = getDouble(getColumnIndex("price"))
+//                    val author = getString(getColumnIndex("author"))
+//                    Log.e("test1111", "name = $name,pages = $pages,price = $price,author = $author")
+//                }
+//                close()
+//            }
+//
+//        }
     }
 
     private fun studyContentProvider() {
