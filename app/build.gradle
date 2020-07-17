@@ -41,6 +41,7 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    ndkVersion '21.0.6113669'
 
 }
 
@@ -59,4 +60,7 @@ dependencies {
 
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
 
+    //监听前后台的生命周期：ProcessLifecycle
+    implementation "androidx.lifecycle:lifecycle-process:2.3.0-alpha05"
+    implementation "androidx.lifecycle:lifecycle-common-java8:2.3.0-alpha05"
 }

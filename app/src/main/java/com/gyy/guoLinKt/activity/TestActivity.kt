@@ -99,6 +99,11 @@ class TestActivity : BaseActivity(), View.OnClickListener {
 
     }
 
+    fun click(view: View) {
+        startActivity(Intent(this, TestActivity::class.java))
+        Log.i("TAG", "是否在前台: ${App.isForeground}")
+    }
+
     /***
      * 这是另外一个工程的代码，主工程有一个可以共享的数据库，然后通过DatabaseProvider供其他app进行访问
      * 这个方法就是其他app通过CP来访问的代码。为了防止找不到，所以copy到了这里
