@@ -1,5 +1,6 @@
 package com.gyy.guoLinKt.activity
 
+import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -82,7 +83,14 @@ class LoginActivity : BaseActivity() {
             Log.d(TAG, "name is $name,age is $age,marry or is $married")
         }
 
+        cancelNotification()
 
+    }
+
+    private fun cancelNotification() {
+        val manger = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        //取消id为1的通知
+        manger.cancel(1)
     }
 
     companion object {

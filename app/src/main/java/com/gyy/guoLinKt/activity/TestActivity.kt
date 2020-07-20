@@ -1,12 +1,13 @@
 package com.gyy.guoLinKt.activity
 
 import android.Manifest
-import android.app.Activity
-import android.app.AlertDialog
+import android.app.*
 import android.content.*
 import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.content.res.Resources
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -20,6 +21,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
+import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.contentValuesOf
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -29,6 +31,7 @@ import com.gyy.guoLinKt.bean.Fruit
 import com.gyy.guoLinKt.bean.Msg
 import com.gyy.guoLinKt.bean.MyDataBaseHelper
 import com.gyy.guoLinKt.kotlin.Util
+import com.gyy.guoLinKt.kotlin.later
 import kotlinx.android.synthetic.main.activity_test.*
 import java.io.BufferedReader
 import java.io.BufferedWriter
@@ -38,6 +41,11 @@ import java.lang.Exception
 
 
 class TestActivity : BaseActivity(), View.OnClickListener {
+
+    val p by later {
+        Log.d("gyytestxxx", "懒加载初始化")
+        "test code"
+    }
 
     val contactsdata = ArrayList<String>()
 
@@ -96,7 +104,45 @@ class TestActivity : BaseActivity(), View.OnClickListener {
         studyDatabase()
         studyContentProvider()
         accessConPro()
+        studyNotification()
 
+    }
+
+    private fun studyNotification() {
+        val notificationManger =
+            this.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            //通知渠道一旦创建就不能更改。更改无效
+            val channel =
+                NotificationChannel("normal", "用户看到的Normal", NotificationManager.IMPORTANCE_DEFAULT)
+            notificationManger.createNotificationChannel(channel)
+            val channel2 =
+                NotificationChannel("important", "用户看到的Normal", NotificationManager.IMPORTANCE_HIGH)
+            notificationManger.createNotificationChannel(channel)
+            notificationManger.createNotificationChannel(channel2)
+        }
+        //以上创建完就可以在设置中看到了
+        btn_sendNotice.setOnClickListener {
+            val intent = Intent(this, LoginActivity::class.java)
+            val pi = PendingIntent.getActivity(this, 0, intent, 0)
+            val notification = NotificationCompat.Builder(this, "important")
+//                .setContentText("这是长text这是长text这是长text这是长text这是长text这是长text这是长text这是长text这是长text这是长text这是长text这是长text这是长text这是长text")
+                .setStyle(
+                    NotificationCompat.BigTextStyle()
+                        .bigText("这是长text这是长text这是长text这是长text这是长text这是长text这是长text这是长text这是长text这是长text这是长text这是长text这是长text这是长text")
+                )
+                .setStyle(
+                    NotificationCompat.BigPictureStyle()
+                        .bigPicture(BitmapFactory.decodeResource(resources, R.drawable.big_image))
+                )
+                .setContentTitle("这是title")
+                .setAutoCancel(true)
+                .setSmallIcon(R.drawable.small_icon)
+                .setContentIntent(pi)
+                .setLargeIcon(BitmapFactory.decodeResource(resources, R.drawable.large_icon))
+                .build()
+            notificationManger.notify(1, notification)
+        }
     }
 
     fun click(view: View) {
@@ -151,6 +197,10 @@ class TestActivity : BaseActivity(), View.OnClickListener {
 //            }
 //
 //        }
+
+        btn_lazy.setOnClickListener {
+            p
+        }
     }
 
     private fun studyContentProvider() {
