@@ -1,6 +1,5 @@
 package com.gyy.guoLinKt.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -17,6 +16,9 @@ class MsgAdapter(val msglist: List<Msg>) : RecyclerView.Adapter<MsgViewHolder>()
         return msg.type
     }
 
+    /***
+     * 绑定ViewHolder实例，并返回ViewHolder实例
+     */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         if (viewType == Msg.TYPE_SEND) {
             val view =
@@ -47,6 +49,9 @@ class MsgAdapter(val msglist: List<Msg>) : RecyclerView.Adapter<MsgViewHolder>()
 
     override fun getItemCount() = msglist.size
 
+    /***
+     * 每一个子项滚动到屏幕内的时候进行执行，根据position判断
+     */
     override fun onBindViewHolder(holder: MsgViewHolder, position: Int) {
         //when语言允许传入任意类型的参数
         when (holder) {
