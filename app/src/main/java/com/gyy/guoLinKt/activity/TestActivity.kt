@@ -12,6 +12,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.ContactsContract
+import android.provider.MediaStore
 import android.util.DisplayMetrics
 import android.util.Log
 import android.view.Menu
@@ -23,7 +24,7 @@ import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
-import androidx.core.content.contentValuesOf
+import androidx.core.content.FileProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gyy.guoLinKt.R
 import com.gyy.guoLinKt.adapter.MsgAdapter
@@ -32,18 +33,19 @@ import com.gyy.guoLinKt.bean.Msg
 import com.gyy.guoLinKt.bean.MyDataBaseHelper
 import com.gyy.guoLinKt.kotlin.Util
 import com.gyy.guoLinKt.kotlin.later
-import dalvik.system.PathClassLoader
 import kotlinx.android.synthetic.main.activity_test.*
-import java.io.BufferedReader
-import java.io.BufferedWriter
-import java.io.InputStreamReader
-import java.io.OutputStreamWriter
+import java.io.*
 import java.lang.Exception
 import java.lang.reflect.Array.newInstance
 import javax.security.auth.login.LoginException
 
 
 class TestActivity : BaseActivity(), View.OnClickListener {
+
+    //拍照相关的
+    val iamgeCapture = 2
+    lateinit var outImageFile:File
+    lateinit var imageUri :Uri
 
     val p by later {
         Log.d("gyytestxxx", "懒加载初始化")
@@ -108,7 +110,28 @@ class TestActivity : BaseActivity(), View.OnClickListener {
         studyContentProvider()
         accessConPro()
         studyNotification()
+        studyCamera()
+    }
 
+    private fun studyCamera() {
+        btn_picture.setOnClickListener {
+            //externalCacheDir是应用关联缓存目录/sdcard/Android/data/<包名>/cache
+            outImageFile = File(externalCacheDir,"outImageFile.jpg")
+            if (outImageFile.exists()){
+                outImageFile.delete()
+            }
+            outImageFile.createNewFile()
+            imageUri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                 FileProvider.getUriForFile(this, "com.gyy.guoLinKt", outImageFile)
+            } else {
+                 Uri.fromFile(outImageFile);
+            }
+            //调用系统的拍照功能，action是固定的
+            val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            //设置图片输出的路径
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri)
+            startActivityForResult(intent,iamgeCapture)
+        }
     }
 
     private fun studyNotification() {
@@ -643,6 +666,10 @@ class TestActivity : BaseActivity(), View.OnClickListener {
         when (requestCode) {
             1 -> if (resultCode == Activity.RESULT_OK) {
                 Toast.makeText(this, data?.getStringExtra("BACK_DATA"), Toast.LENGTH_SHORT).show()
+            }
+            iamgeCapture->if (resultCode == Activity.RESULT_OK){
+                val bitmap = BitmapFactory.decodeStream(contentResolver.openInputStream(imageUri))
+                imageView1.setImageBitmap(bitmap)
             }
         }
         super.onActivityResult(requestCode, resultCode, data)
