@@ -21,16 +21,8 @@
             android:name=".bean.DatabaseProvider"
             android:authorities="com.gyy.guoLinKt"
             android:enabled="true"
-            android:exported="true"/>
-<!--        <provider-->
-<!--            android:authorities="com.gyy.guoLinKt"-->
-<!--            android:name="androidx.core.content.FileProvider"-->
-<!--            android:exported="false"-->
-<!--            android:grantUriPermissions="true">-->
-<!--            <meta-data-->
-<!--                android:name="android.support.FILE_PROVIDER_PATHS"-->
-<!--                android:resource="@xml/file_paths" />-->
-<!--        </provider>-->
+            android:exported="true">
+        </provider>
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.gyy.guoLinKt"

@@ -44,8 +44,8 @@ class TestActivity : BaseActivity(), View.OnClickListener {
 
     //拍照相关的
     val iamgeCapture = 2
-    lateinit var outImageFile:File
-    lateinit var imageUri :Uri
+    lateinit var outImageFile: File
+    lateinit var imageUri: Uri
 
     val p by later {
         Log.d("gyytestxxx", "懒加载初始化")
@@ -116,21 +116,22 @@ class TestActivity : BaseActivity(), View.OnClickListener {
     private fun studyCamera() {
         btn_picture.setOnClickListener {
             //externalCacheDir是应用关联缓存目录/sdcard/Android/data/<包名>/cache
-            outImageFile = File(externalCacheDir,"outImageFile.jpg")
-            if (outImageFile.exists()){
+            Log.e(TAG, "externalCacheDir:${externalCacheDir} ")
+            outImageFile = File(externalCacheDir, "outImageFile.jpg")
+            if (outImageFile.exists()) {
                 outImageFile.delete()
             }
             outImageFile.createNewFile()
             imageUri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                 FileProvider.getUriForFile(this, "com.gyy.guoLinKt", outImageFile)
+                FileProvider.getUriForFile(this, "com.gyy.guoLinKt", outImageFile)
             } else {
-                 Uri.fromFile(outImageFile);
+                Uri.fromFile(outImageFile);
             }
             //调用系统的拍照功能，action是固定的
             val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
             //设置图片输出的路径
             intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri)
-            startActivityForResult(intent,iamgeCapture)
+            startActivityForResult(intent, iamgeCapture)
         }
     }
 
@@ -667,7 +668,7 @@ class TestActivity : BaseActivity(), View.OnClickListener {
             1 -> if (resultCode == Activity.RESULT_OK) {
                 Toast.makeText(this, data?.getStringExtra("BACK_DATA"), Toast.LENGTH_SHORT).show()
             }
-            iamgeCapture->if (resultCode == Activity.RESULT_OK){
+            iamgeCapture -> if (resultCode == Activity.RESULT_OK) {
                 val bitmap = BitmapFactory.decodeStream(contentResolver.openInputStream(imageUri))
                 imageView1.setImageBitmap(bitmap)
             }
