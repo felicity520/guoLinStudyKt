@@ -44,6 +44,7 @@ class TestActivity : BaseActivity(), View.OnClickListener {
 
     //拍照相关的
     val iamgeCapture = 2
+    val fromAlbum = 3
     lateinit var outImageFile: File
     lateinit var imageUri: Uri
 
@@ -114,6 +115,7 @@ class TestActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun studyCamera() {
+        //调用系统的拍照功能
         btn_picture.setOnClickListener {
             //externalCacheDir是应用关联缓存目录/sdcard/Android/data/<包名>/cache
             Log.e(TAG, "externalCacheDir:${externalCacheDir} ")
@@ -123,7 +125,7 @@ class TestActivity : BaseActivity(), View.OnClickListener {
             }
             outImageFile.createNewFile()
             imageUri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                FileProvider.getUriForFile(this, "com.gyy.guoLinKt", outImageFile)
+                FileProvider.getUriForFile(this, "com.gyy.guoLinKt.provider", outImageFile)
             } else {
                 Uri.fromFile(outImageFile);
             }
@@ -132,6 +134,13 @@ class TestActivity : BaseActivity(), View.OnClickListener {
             //设置图片输出的路径
             intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri)
             startActivityForResult(intent, iamgeCapture)
+        }
+        //调起系统的相册
+        btn_album.setOnClickListener {
+            val intent1 = Intent(Intent.ACTION_OPEN_DOCUMENT)
+            intent1.addCategory(Intent.CATEGORY_OPENABLE)
+            intent1.type = "image/*"
+            startActivityForResult(intent1, fromAlbum)
         }
     }
 
@@ -672,8 +681,18 @@ class TestActivity : BaseActivity(), View.OnClickListener {
                 val bitmap = BitmapFactory.decodeStream(contentResolver.openInputStream(imageUri))
                 imageView1.setImageBitmap(bitmap)
             }
+            fromAlbum -> if (resultCode == Activity.RESULT_OK && data != null) {
+                data.data?.let { uri ->
+                    val bitmap = getBitmapFromUri(uri)
+                    imageView1.setImageBitmap(bitmap)
+                }
+            }
         }
         super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    private fun getBitmapFromUri(uri: Uri) = contentResolver.openFileDescriptor(uri, "r")?.use {
+        BitmapFactory.decodeFileDescriptor(it.fileDescriptor)
     }
 
 

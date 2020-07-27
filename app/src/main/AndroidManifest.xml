@@ -21,11 +21,11 @@
             android:name=".bean.DatabaseProvider"
             android:authorities="com.gyy.guoLinKt"
             android:enabled="true"
-            android:exported="true">
-        </provider>
+            android:exported="true"></provider>
+        <!--注意：authorities：一个标识，必须是唯一值，一般用包名。注意啊，不能重复，必须唯一，之前一直报错就是因为重复了，不唯一-->
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="com.gyy.guoLinKt"
+            android:authorities="com.gyy.guoLinKt.provider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
