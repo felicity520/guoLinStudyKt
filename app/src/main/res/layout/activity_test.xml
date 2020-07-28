@@ -137,76 +137,76 @@
         android:visibility="gone" />
 
     <Button
-        android:visibility="gone"
         android:id="@+id/btn_creatDatabase"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="创建数据库" />
+        android:text="创建数据库"
+        android:visibility="gone" />
 
     <Button
-        android:visibility="gone"
         android:id="@+id/btn_adddata"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="插入数据" />
+        android:text="插入数据"
+        android:visibility="gone" />
 
     <Button
-        android:visibility="gone"
         android:id="@+id/btn_upgradedata"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="更新数据" />
+        android:text="更新数据"
+        android:visibility="gone" />
 
     <Button
-        android:visibility="gone"
         android:id="@+id/btn_deletedata"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="删除数据" />
+        android:text="删除数据"
+        android:visibility="gone" />
 
     <Button
-        android:visibility="gone"
         android:id="@+id/btn_querydata"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="查询数据" />
+        android:text="查询数据"
+        android:visibility="gone" />
 
     <Button
-        android:visibility="gone"
         android:id="@+id/btn_replacedata"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="覆盖数据" />
+        android:text="覆盖数据"
+        android:visibility="gone" />
 
     <Button
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:onClick="click"
-        android:text="测试前后台切换" />
+        android:text="测试前后台切换"
+        android:visibility="gone" />
 
     <Button
-        android:visibility="gone"
         android:id="@+id/btn_lazy"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="学习一下懒加载" />
+        android:text="学习一下懒加载"
+        android:visibility="gone" />
 
     <Button
-        android:visibility="gone"
         android:id="@+id/btn_sendNotice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="发送消息" />
+        android:text="发送消息"
+        android:visibility="gone" />
 
     <Button
         android:id="@+id/btn_makecall"
@@ -217,25 +217,85 @@
         android:visibility="gone" />
 
     <ListView
-        android:visibility="gone"
         android:id="@+id/listView_contacts"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:visibility="gone" />
 
     <Button
         android:id="@+id/btn_picture"
-        android:text="拍照"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:text="拍照"
+        android:visibility="gone" />
 
     <Button
         android:id="@+id/btn_album"
-        android:text="选择图片"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:text="选择图片"
+        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/imageView1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/btn_play"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="播放"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/btn_pause"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="暂停"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/btn_stop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="停止"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/play"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Play" />
+
+        <Button
+            android:id="@+id/pause"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Pause" />
+
+        <Button
+            android:id="@+id/replay"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Replay" />
+
+    </LinearLayout>
+
+    <VideoView
+        android:visibility="gone"
+        android:id="@+id/videoView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
 </LinearLayout>

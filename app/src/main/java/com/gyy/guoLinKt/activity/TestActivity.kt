@@ -8,6 +8,7 @@ import android.content.res.Configuration
 import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -41,6 +42,8 @@ import javax.security.auth.login.LoginException
 
 
 class TestActivity : BaseActivity(), View.OnClickListener {
+
+    val mediaPlayer = MediaPlayer()
 
     //拍照相关的
     val iamgeCapture = 2
@@ -112,6 +115,57 @@ class TestActivity : BaseActivity(), View.OnClickListener {
         accessConPro()
         studyNotification()
         studyCamera()
+        studyMusic()
+    }
+
+    private fun studyMusic() {
+        initMediaPlayer()
+        btn_play.setOnClickListener {
+            if (!mediaPlayer.isPlaying) {
+                mediaPlayer.start()
+            }
+        }
+        btn_pause.setOnClickListener {
+            if (mediaPlayer.isPlaying) {
+                mediaPlayer.pause()
+            }
+        }
+        btn_stop.setOnClickListener {
+            if (mediaPlayer.isPlaying) {
+                //reset()是暂停的意思
+                mediaPlayer.reset()
+                initMediaPlayer()
+            }
+        }
+
+        //播放视频
+        //Uri.parse("android.resource://org.crazyit.ui/"+R.raw.msg)
+        val uri = Uri.parse("android.resource://$packageName/${R.raw.video}")
+        videoView.setVideoURI(uri)
+        play.setOnClickListener {
+            if (!videoView.isPlaying) {
+                videoView.start()
+            }
+        }
+        pause.setOnClickListener {
+            if (videoView.isPlaying) {
+                videoView.pause()
+            }
+        }
+        replay.setOnClickListener {
+            if (videoView.isPlaying) {
+                videoView.resume()
+            }
+        }
+
+
+    }
+
+    private fun initMediaPlayer() {
+        val assets = assets
+        val fd = assets.openFd("music.mp3")
+        mediaPlayer.setDataSource(fd.fileDescriptor, fd.startOffset, fd.length)
+        mediaPlayer.prepare()
     }
 
     private fun studyCamera() {
@@ -704,6 +758,9 @@ class TestActivity : BaseActivity(), View.OnClickListener {
         //在程序销毁的时候获取编辑的内容，并且保存
         val inputText = editText1.text.toString()
         saveEditContent(inputText)
+
+        //释放视频资源
+        videoView.suspend()
     }
 
     private fun saveEditContent(inputText: String) {
