@@ -85,6 +85,7 @@ fun main() {
     }
     println("xx1 is ${stringBuilder.toString()}")
 
+    studyInfix()
 
     println("main start")
     val str = ""
@@ -94,6 +95,22 @@ fun main() {
         println(s)
         println("lambda end")
     }
+
+
+}
+
+fun studyInfix() {
+    val result = "hel boy".beginsWith("hel")
+    val result1 = "he" beginsWith "l"
+
+    val list1 = listOf("Apple", "Banana", "Orange")
+    val result3 = list1 has "Banana"
+
+    val map = mapOf("Apple" with  1, "Banana" with 2, "with" to 3)
+    for ((fruit, number) in map)
+        println("fruit = $fruit, number = $number")
+
+    println("result-----:$result----result1:$result1-----result3:$result3")
 }
 
 inline fun runRunnable(crossinline block: () -> Unit) {
