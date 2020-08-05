@@ -312,4 +312,30 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+    <Button
+        android:visibility="gone"
+        android:id="@+id/btn_thread"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="发送线程" />
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/text22"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="发送线程" />
+
+    <Button
+        android:id="@+id/btn_startservice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="开启服务" />
+
+    <Button
+        android:id="@+id/btn_stopservice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="关闭服务" />
+
 </LinearLayout>

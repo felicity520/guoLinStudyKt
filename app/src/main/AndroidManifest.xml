@@ -6,8 +6,8 @@
     <uses-permission android:name="android.permission.BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
         android:name=".activity.App"
@@ -17,12 +17,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <service
+            android:enabled="true"
+            android:name=".service.MyIntentService"
+            android:exported="false" />
+        <service
+            android:name=".service.MyService"
+            android:enabled="true"
+            android:exported="true" />
         <provider
             android:name=".bean.DatabaseProvider"
             android:authorities="com.gyy.guoLinKt"
             android:enabled="true"
-            android:exported="true"></provider>
-        <!--注意：authorities：一个标识，必须是唯一值，一般用包名。注意啊，不能重复，必须唯一，之前一直报错就是因为重复了，不唯一-->
+            android:exported="true" /> <!-- 注意：authorities：一个标识，必须是唯一值，一般用包名。注意啊，不能重复，必须唯一，之前一直报错就是因为重复了，不唯一 -->
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.gyy.guoLinKt.provider"
@@ -31,8 +38,7 @@
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
-        </provider>
-        <!-- 错误的想法 -->
+        </provider> <!-- 错误的想法 -->
         <!-- <receiver -->
         <!-- android:name=".brocast.ForceofflineReceiver" -->
         <!-- android:enabled="true" -->
@@ -106,6 +112,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

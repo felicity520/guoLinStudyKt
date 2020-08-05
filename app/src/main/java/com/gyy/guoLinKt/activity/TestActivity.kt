@@ -6,12 +6,14 @@ import android.content.*
 import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.content.res.Resources
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Message
 import android.provider.ContactsContract
 import android.provider.MediaStore
 import android.util.DisplayMetrics
@@ -34,11 +36,10 @@ import com.gyy.guoLinKt.bean.Msg
 import com.gyy.guoLinKt.bean.MyDataBaseHelper
 import com.gyy.guoLinKt.kotlin.Util
 import com.gyy.guoLinKt.kotlin.later
+import com.gyy.guoLinKt.service.MyIntentService
+import com.gyy.guoLinKt.service.MyService
 import kotlinx.android.synthetic.main.activity_test.*
 import java.io.*
-import java.lang.Exception
-import java.lang.reflect.Array.newInstance
-import javax.security.auth.login.LoginException
 
 
 class TestActivity : BaseActivity(), View.OnClickListener {
@@ -89,6 +90,26 @@ class TestActivity : BaseActivity(), View.OnClickListener {
 //    lateinit 延迟初始化
 //    private var msgAdapter: MsgAdapter? = null
 
+    val mHandler: Handler = object : Handler() {
+        override fun handleMessage(msg: Message) {
+            when (msg.what) {
+                1 -> {
+                    text22.setText("在主线程")
+                }
+            }
+        }
+    }
+
+//     val mHandler: Handler = object : Handler() {
+//        override fun handleMessage(msg: Message) {
+//            when (msg.what) {
+//                1 -> {
+//
+//                }
+//            }
+//        }
+//    }
+
     @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -116,6 +137,51 @@ class TestActivity : BaseActivity(), View.OnClickListener {
         studyNotification()
         studyCamera()
         studyMusic()
+        studyThread()
+        studyService()
+    }
+
+    private fun studyService() {
+        btn_startservice.setOnClickListener {
+            //启动服务
+//            val intent1 = Intent(this,MyService::class.java)
+//            startService(intent1)
+
+//            Log.e(
+//                "MyIntentService",
+//                "按钮Thread.currentThread().name = ${Thread.currentThread().name}"
+//            )
+//            val intent1 = Intent(this, MyIntentService()::class.java)
+//            startService(intent1)
+
+
+            startActivity<MainActivity>(this) {
+                //传参
+                putExtra("param1", "data")
+            }
+
+
+        }
+        btn_stopservice.setOnClickListener {
+            val intent1 = Intent(this, MyService::class.java)
+            stopService(intent1)
+        }
+    }
+
+    inline fun <reified T> startActivity(context: Context, block: Intent.() -> Unit) {
+        val intent = Intent(this, T::class.java)
+        intent.block()
+        startActivity(intent)
+    }
+
+    inline fun <reified T> getType() = T::class.java
+
+    private fun studyThread() {
+        btn_thread.setOnClickListener {
+            val msg = Message()
+            msg.what = 1
+            mHandler.sendMessage(msg)
+        }
     }
 
     private fun studyMusic() {

@@ -85,6 +85,7 @@ fun main() {
     }
     println("xx1 is ${stringBuilder.toString()}")
 
+    studyT()
     studyInfix()
 
     println("main start")
@@ -99,6 +100,14 @@ fun main() {
 
 }
 
+fun studyT() {
+    val result = getType<String>()
+    //返回是  result = class java.lang.String
+    println("result = ${result}")
+}
+
+inline fun <reified T> getType() = T::class.java
+
 fun studyInfix() {
     val result = "hel boy".beginsWith("hel")
     val result1 = "he" beginsWith "l"
@@ -106,7 +115,7 @@ fun studyInfix() {
     val list1 = listOf("Apple", "Banana", "Orange")
     val result3 = list1 has "Banana"
 
-    val map = mapOf("Apple" with  1, "Banana" with 2, "with" to 3)
+    val map = mapOf("Apple" with 1, "Banana" with 2, "with" to 3)
     for ((fruit, number) in map)
         println("fruit = $fruit, number = $number")
 
