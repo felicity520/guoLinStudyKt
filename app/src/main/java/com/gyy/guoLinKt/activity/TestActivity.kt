@@ -41,7 +41,26 @@ import com.gyy.guoLinKt.service.MyService
 import kotlinx.android.synthetic.main.activity_test.*
 import java.io.*
 
-
+/**
+ * 　　　┏┓　　　┏┓
+ * 　　┏┛┻━━━┛┻┓
+ * 　　┃　　　　　　　┃
+ * 　　┃　　　━　　　┃
+ * 　　┃　┳┛　┗┳　┃
+ * 　　┃　　　　　　　┃
+ * 　　┃　　　┻　　　┃
+ * 　　┃　　　　　　　┃
+ * 　　┗━┓　　　┏━┛
+ * 　　　　┃　　　┃ 神兽保佑
+ * 　　　　┃　　　┃ 代码无BUG！
+ * 　　　　┃　　　┗━━━┓
+ * 　　　　┃　　　　　　　┣┓
+ * 　　　　┃　　　　　　　┏┛
+ * 　　　　┗┓┓┏━┳┓┏┛
+ * 　　　　　┃┫┫　┃┫┫
+ * 　　　　　┗┻┛　┗┻┛
+ * add by GYY
+ */
 class TestActivity : BaseActivity(), View.OnClickListener {
 
     val mediaPlayer = MediaPlayer()
