@@ -28,6 +28,9 @@ import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import androidx.core.content.edit
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelStoreOwner
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gyy.guoLinKt.R
 import com.gyy.guoLinKt.adapter.MsgAdapter
@@ -36,10 +39,13 @@ import com.gyy.guoLinKt.bean.Msg
 import com.gyy.guoLinKt.bean.MyDataBaseHelper
 import com.gyy.guoLinKt.kotlin.Util
 import com.gyy.guoLinKt.kotlin.later
-import com.gyy.guoLinKt.service.MyIntentService
 import com.gyy.guoLinKt.service.MyService
+import com.gyy.guoLinKt.viewmodel.MainViewModel
+import com.gyy.guoLinKt.viewmodel.MainViewModelFactory
 import kotlinx.android.synthetic.main.activity_test.*
 import java.io.*
+import java.util.EnumSet.of
+import java.util.Optional.of
 
 /**
  * 　　　┏┓　　　┏┓
@@ -62,6 +68,11 @@ import java.io.*
  * add by GYY
  */
 class TestActivity : BaseActivity(), View.OnClickListener {
+
+    //viewmodule相关
+    lateinit var mainViewModule: MainViewModel
+
+    lateinit var sp: SharedPreferences
 
     val mediaPlayer = MediaPlayer()
 
@@ -158,6 +169,43 @@ class TestActivity : BaseActivity(), View.OnClickListener {
         studyMusic()
         studyThread()
         studyService()
+        studyViewModule()
+    }
+
+    private fun studyViewModule() {
+        sp = getPreferences(Context.MODE_PRIVATE)
+        val counterReserved = sp.getInt("counterReserved", 0)
+        //2.2.0的最新代码
+//        mainViewModule = ViewModelProvider(this)[MainViewModel::class.java]
+
+        //2.2.0带有参数的初始化
+        mainViewModule = ViewModelProvider(
+            this,
+            MainViewModelFactory(counterReserved)
+        )[MainViewModel::class.java]
+
+        //2.1.0中的代码，在2.2.0已经被废弃
+        // mainViewModule = ViewModelProvider.of(this).get(MainViewModel::class.java)
+        btn_plus.setOnClickListener {
+            mainViewModule.counter++
+            reFreshCounter()
+        }
+        btn_clear.setOnClickListener {
+            mainViewModule.counter = 0
+            reFreshCounter()
+        }
+        reFreshCounter()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        sp.edit {
+            putInt("counterReserved", mainViewModule.counter)
+        }
+    }
+
+    private fun reFreshCounter() {
+        textCounter.text = mainViewModule.counter.toString()
     }
 
     private fun studyService() {

@@ -298,29 +298,49 @@
         android:visibility="gone" />
 
     <Button
-        android:visibility="gone"
         android:id="@+id/btn_thread"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="发送线程" />
+        android:text="发送线程"
+        android:visibility="gone" />
 
     <TextView
-        android:visibility="gone"
         android:id="@+id/text22"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="发送线程" />
+        android:text="发送线程"
+        android:visibility="gone" />
 
     <Button
         android:id="@+id/btn_startservice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="开启服务" />
+        android:text="开启服务"
+        android:visibility="gone" />
 
     <Button
         android:id="@+id/btn_stopservice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="关闭服务" />
+        android:text="关闭服务"
+        android:visibility="gone" />
+
+    <TextView
+        android:gravity="center"
+        android:id="@+id/textCounter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/btn_plus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="加1" />
+
+    <Button
+        android:id="@+id/btn_clear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="清0" />
 
 </LinearLayout>

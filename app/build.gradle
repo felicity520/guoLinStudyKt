@@ -63,4 +63,9 @@ dependencies {
     //监听前后台的生命周期：ProcessLifecycle
     implementation "androidx.lifecycle:lifecycle-process:2.3.0-alpha06"
     implementation "androidx.lifecycle:lifecycle-common-java8:2.3.0-alpha06"
+
+    implementation 'com.squareup.okhttp3:okhttp:4.1.0'
+
+    implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.3.0-alpha06"
 }
