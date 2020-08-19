@@ -13,6 +13,7 @@ import androidx.lifecycle.ProcessLifecycleOwner
 class App : Application() {
 
     private val processLifecycleObserver by lazy { ProcessLifecycleObserver() }
+
     override fun onCreate() {
         super.onCreate()
         ProcessLifecycleOwner.get().lifecycle.addObserver(processLifecycleObserver)

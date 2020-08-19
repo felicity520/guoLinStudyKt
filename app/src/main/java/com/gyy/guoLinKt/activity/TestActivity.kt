@@ -29,6 +29,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.core.content.edit
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -42,6 +43,7 @@ import com.gyy.guoLinKt.kotlin.later
 import com.gyy.guoLinKt.service.MyService
 import com.gyy.guoLinKt.viewmodel.MainViewModel
 import com.gyy.guoLinKt.viewmodel.MainViewModelFactory
+import com.gyy.guoLinKt.viewmodel.MyObserver
 import kotlinx.android.synthetic.main.activity_test.*
 import java.io.*
 import java.util.EnumSet.of
@@ -173,6 +175,8 @@ class TestActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun studyViewModule() {
+        lifecycle.addObserver(MyObserver(this.lifecycle))
+
         sp = getPreferences(Context.MODE_PRIVATE)
         val counterReserved = sp.getInt("counterReserved", 0)
         //2.2.0的最新代码
@@ -187,20 +191,37 @@ class TestActivity : BaseActivity(), View.OnClickListener {
         //2.1.0中的代码，在2.2.0已经被废弃
         // mainViewModule = ViewModelProvider.of(this).get(MainViewModel::class.java)
         btn_plus.setOnClickListener {
-            mainViewModule.counter++
-            reFreshCounter()
+            mainViewModule.plusOne()
         }
         btn_clear.setOnClickListener {
-            mainViewModule.counter = 0
-            reFreshCounter()
+            mainViewModule.clear()
         }
-        reFreshCounter()
+        mainViewModule.counter.observe(this, Observer { counter ->
+
+            Log.e(TAG, "studyViewModule: " + mainViewModule.a)
+            textCounter.text = counter.toString()
+        })
+
+        btn_user.setOnClickListener {
+            val userId = (1..1000).random().toString()
+            mainViewModule.getUserId(userId)
+        }
+        mainViewModule.user.observe(this, Observer { user ->
+            Log.e(TAG, "user: " + user.firstName)
+            textCounter.text = user.firstName
+        })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.e(TAG, "onResume:-------------------:" + this.lifecycle.currentState)
+
     }
 
     override fun onPause() {
         super.onPause()
         sp.edit {
-            putInt("counterReserved", mainViewModule.counter)
+            putInt("counterReserved", mainViewModule.counter.value ?: 0)
         }
     }
 
