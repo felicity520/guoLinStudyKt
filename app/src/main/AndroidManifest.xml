@@ -18,18 +18,22 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <service
-            android:enabled="true"
             android:name=".service.MyIntentService"
+            android:enabled="true"
             android:exported="false" />
         <service
             android:name=".service.MyService"
             android:enabled="true"
             android:exported="true" />
+        <!--自定义ContentProvider-->
         <provider
             android:name=".bean.DatabaseProvider"
             android:authorities="com.gyy.guoLinKt"
             android:enabled="true"
-            android:exported="true" /> <!-- 注意：authorities：一个标识，必须是唯一值，一般用包名。注意啊，不能重复，必须唯一，之前一直报错就是因为重复了，不唯一 -->
+            android:exported="true" />
+
+        <!-- 注意：authorities：一个标识，必须是唯一值，一般用包名。注意啊，不能重复，必须唯一，之前一直报错就是因为重复了，不唯一 -->
+        <!--访问图片-->
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.gyy.guoLinKt.provider"

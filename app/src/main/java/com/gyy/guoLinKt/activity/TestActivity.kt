@@ -197,7 +197,6 @@ class TestActivity : BaseActivity(), View.OnClickListener {
             mainViewModule.clear()
         }
         mainViewModule.counter.observe(this, Observer { counter ->
-
             Log.e(TAG, "studyViewModule: " + mainViewModule.a)
             textCounter.text = counter.toString()
         })
@@ -210,6 +209,11 @@ class TestActivity : BaseActivity(), View.OnClickListener {
             Log.e(TAG, "user: " + user.firstName)
             textCounter.text = user.firstName
         })
+
+        mainViewModule.user.observeForever { user ->
+            Log.e(TAG, "user-------: " + user.firstName)
+            textCounter.text = user.firstName
+        }
     }
 
     override fun onResume() {
