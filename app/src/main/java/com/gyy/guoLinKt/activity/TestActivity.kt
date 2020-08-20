@@ -35,9 +35,11 @@ import androidx.lifecycle.ViewModelStoreOwner
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gyy.guoLinKt.R
 import com.gyy.guoLinKt.adapter.MsgAdapter
+import com.gyy.guoLinKt.bean.AppDatabase
 import com.gyy.guoLinKt.bean.Fruit
 import com.gyy.guoLinKt.bean.Msg
 import com.gyy.guoLinKt.bean.MyDataBaseHelper
+import com.gyy.guoLinKt.kotlin.User
 import com.gyy.guoLinKt.kotlin.Util
 import com.gyy.guoLinKt.kotlin.later
 import com.gyy.guoLinKt.service.MyService
@@ -48,6 +50,7 @@ import kotlinx.android.synthetic.main.activity_test.*
 import java.io.*
 import java.util.EnumSet.of
 import java.util.Optional.of
+import kotlin.concurrent.thread
 
 /**
  * 　　　┏┓　　　┏┓
@@ -172,6 +175,37 @@ class TestActivity : BaseActivity(), View.OnClickListener {
         studyThread()
         studyService()
         studyViewModule()
+        setRoom()
+    }
+
+    private fun setRoom() {
+        val userDao = AppDatabase.getInstance(this).UserDao()
+        val user1 = User("firstName1", "lastName1", 40)
+        val user2 = User("firstName2", "lastName2", 20)
+        room_adddata.setOnClickListener {
+            thread {
+                user1.id = userDao.insertUser(user1)
+                user2.id = userDao.insertUser(user2)
+            }
+        }
+        room_upgradedata.setOnClickListener {
+            thread {
+                user1.age = 42
+                userDao.updateUser(user1)
+            }
+        }
+        room_deletedata.setOnClickListener {
+            thread {
+                userDao.deleteUserByLastName("lastName1")
+            }
+        }
+        room_querydata.setOnClickListener {
+            thread {
+                for (user in userDao.loadAllUser()) {
+                    Log.e(TAG, "user ${user.firstName} ${user.lastName} ${user.age}")
+                }
+            }
+        }
     }
 
     private fun studyViewModule() {
