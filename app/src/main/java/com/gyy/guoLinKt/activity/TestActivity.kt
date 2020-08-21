@@ -175,10 +175,10 @@ class TestActivity : BaseActivity(), View.OnClickListener {
         studyThread()
         studyService()
         studyViewModule()
-        setRoom()
+        studyRoom()
     }
 
-    private fun setRoom() {
+    private fun studyRoom() {
         val userDao = AppDatabase.getInstance(this).UserDao()
         val user1 = User("firstName1", "lastName1", 40)
         val user2 = User("firstName2", "lastName2", 20)

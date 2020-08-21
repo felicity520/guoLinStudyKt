@@ -23,7 +23,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun BookDao(): BookDao
 
     companion object {
-        private lateinit var instance: AppDatabase
+        private var instance: AppDatabase? = null
 
         private val MIGRATION_1_2 = object : Migration(1, 2) {
             override fun migrate(database: SupportSQLiteDatabase) {
@@ -39,7 +39,7 @@ abstract class AppDatabase : RoomDatabase() {
 
         @Synchronized
         fun getInstance(context: Context): AppDatabase {
-            instance.let {
+            instance?.let {
                 return it
             }
             return Room.databaseBuilder(

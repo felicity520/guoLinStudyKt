@@ -21,8 +21,9 @@ interface UserDao {
     @Query("select * from User where age > :age")
     fun loadUsersOldderThan(age: Int): List<User>
 
+    //删除个别行之后返回的应该是行的id
     @Query("delete from User where lastName == :lastName")
-    fun deleteUserByLastName(lastName: String): List<User>
+    fun deleteUserByLastName(lastName: String): Int
 
 
 }
