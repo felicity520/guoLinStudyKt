@@ -42,7 +42,21 @@
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
-        </provider> <!-- 错误的想法 -->
+        </provider>
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            android:exported="false"
+            tools:node="merge">
+            <meta-data
+                android:name="com.gyy.guoLinKt.bean.LitePalInitializer"
+                android:value="androidx.startup" />
+            <!--延迟初始化的配置-->
+            <!--<meta-data-->
+            <!--    android:name="com.example.LitePalInitializer"-->
+            <!--    tools:node="remove" />-->
+        </provider>
+        <!-- 错误的想法 -->
         <!-- <receiver -->
         <!-- android:name=".brocast.ForceofflineReceiver" -->
         <!-- android:enabled="true" -->
