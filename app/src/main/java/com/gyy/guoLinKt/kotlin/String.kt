@@ -1,5 +1,7 @@
 package com.gyy.guoLinKt.kotlin
 
+import android.widget.Toast
+import com.gyy.guoLinKt.activity.App
 import java.lang.StringBuilder
 
 fun String.letterCount(): Int {
@@ -33,4 +35,8 @@ operator fun String.times(count: Int): String = repeat(count)
 fun StringBuilder.build(block: StringBuilder.() -> Unit): StringBuilder {
     block()
     return this
+}
+
+fun String.showToast(duration: Int = Toast.LENGTH_SHORT) {
+    Toast.makeText(App.context, this, duration).show()
 }

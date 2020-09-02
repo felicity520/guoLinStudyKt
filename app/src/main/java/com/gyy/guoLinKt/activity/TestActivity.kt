@@ -33,15 +33,15 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.work.OneTimeWorkRequest
+import androidx.work.WorkManager
 import com.gyy.guoLinKt.R
 import com.gyy.guoLinKt.adapter.MsgAdapter
-import com.gyy.guoLinKt.bean.AppDatabase
-import com.gyy.guoLinKt.bean.Fruit
-import com.gyy.guoLinKt.bean.Msg
-import com.gyy.guoLinKt.bean.MyDataBaseHelper
+import com.gyy.guoLinKt.bean.*
 import com.gyy.guoLinKt.kotlin.User
 import com.gyy.guoLinKt.kotlin.Util
 import com.gyy.guoLinKt.kotlin.later
+import com.gyy.guoLinKt.kotlin.showToast
 import com.gyy.guoLinKt.service.MyService
 import com.gyy.guoLinKt.viewmodel.MainViewModel
 import com.gyy.guoLinKt.viewmodel.MainViewModelFactory
@@ -176,6 +176,25 @@ class TestActivity : BaseActivity(), View.OnClickListener {
         studyService()
         studyViewModule()
         studyRoom()
+        studyWorkManager()
+        studySerialize()
+
+    }
+
+    private fun studySerialize() {
+        val fruit = Fruit("ping_gyy", 25)
+        val intent = Intent(this, SecondActivity::class.java)
+        intent.putExtra("serial_data", fruit)
+        startActivity(intent)
+    }
+
+    private fun studyWorkManager() {
+        "MY gyy".showToast()
+        R.string.app_name.showToast()
+        btn_do_work.setOnClickListener {
+            val request = OneTimeWorkRequest.Builder(SimpleWorker::class.java).build()
+            WorkManager.getInstance(this).enqueue(request)
+        }
     }
 
     private fun studyRoom() {

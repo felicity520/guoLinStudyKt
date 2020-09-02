@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.gyy.guoLinKt.R
+import com.gyy.guoLinKt.bean.Fruit
 import kotlinx.android.synthetic.main.activity_second.*
 
 class SecondActivity : AppCompatActivity() {
@@ -16,6 +17,10 @@ class SecondActivity : AppCompatActivity() {
         setContentView(R.layout.activity_second)
 //        val keyvalue = intent.getStringExtra("KEY")
 //        Log.e("gyy", "keyvalue is $keyvalue")
+
+//        val fruit = intent.getSerializableExtra("serial_data") as Fruit
+        val fruit = intent.getParcelableExtra("serial_data") as Fruit
+        Log.e(TAG, "onCreate: fruit:${fruit.name}")
 
         button2.setOnClickListener {
             val intent = Intent()
@@ -27,6 +32,8 @@ class SecondActivity : AppCompatActivity() {
     }
 
     companion object {
+        private const val TAG = "SecondActivity"
+
         fun actionStart(context: Context, data1: String, data2: String) {
             val intent = Intent(context, SecondActivity::class.java)
             intent.putExtra("", data1)

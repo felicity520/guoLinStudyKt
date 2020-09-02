@@ -1,6 +1,12 @@
 package com.gyy.guoLinKt.bean
 
-import android.widget.ImageView
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+import java.io.Serializable
 
-class Fruit(val name: String, val fruitImage: Int) {
+//class Fruit(val name: String, val fruitImage: Int) : Serializable {
+//}
+
+@Parcelize
+class Fruit(val name: String, val fruitImage: Int) : Parcelable {
 }

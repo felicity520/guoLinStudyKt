@@ -341,34 +341,35 @@
         android:visibility="gone" />
 
     <TextView
-        android:visibility="gone"
-        android:gravity="center"
         android:id="@+id/textCounter"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:visibility="gone" />
 
     <Button
-        android:visibility="gone"
         android:id="@+id/btn_plus"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="加1" />
+        android:text="加1"
+        android:visibility="gone" />
 
     <Button
-        android:visibility="gone"
         android:id="@+id/btn_clear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="清0" />
+        android:text="清0"
+        android:visibility="gone" />
 
     <Button
-        android:visibility="gone"
         android:id="@+id/btn_user"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="变换数值" />
+        android:text="变换数值"
+        android:visibility="gone" />
 
     <Button
+        android:visibility="gone"
         android:id="@+id/room_adddata"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -376,6 +377,7 @@
         android:text="插入数据" />
 
     <Button
+        android:visibility="gone"
         android:id="@+id/room_upgradedata"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -383,6 +385,7 @@
         android:text="更新数据" />
 
     <Button
+        android:visibility="gone"
         android:id="@+id/room_deletedata"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -390,10 +393,19 @@
         android:text="删除数据" />
 
     <Button
+        android:visibility="gone"
         android:id="@+id/room_querydata"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="查询数据" />
+
+
+    <Button
+        android:id="@+id/btn_do_work"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="定时任务" />
 
 </LinearLayout>

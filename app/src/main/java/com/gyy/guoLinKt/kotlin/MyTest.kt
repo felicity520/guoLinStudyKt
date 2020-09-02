@@ -1,9 +1,17 @@
 package com.gyy.guoLinKt.kotlin
 
+import com.gyy.guoLinKt.bean.Table
+import com.gyy.guoLinKt.bean.Tr
+import com.gyy.guoLinKt.bean.dependencies
 import com.gyy.guoLinKt.kotlin.Util.doAction1
 import kotlin.math.max
+import com.gyy.guoLinKt.bean.table
 
 fun main() {
+
+    val json = "{\"name\":\"Tom\",\"age\":\"25\"}"
+    val json1 = "{\n  \"name\": \"tom\",\n  \"age\": \"25\",\n  \"ahe\": \"22\"\n}\n"
+
 //    KT中的集合
     studyAggregate()
     Singleton.singletonTest()//调用单例的函数，类似于java的static
@@ -68,6 +76,7 @@ fun main() {
         is Failure -> "Error is ${result.error.message}"
     }
 
+    studyDSL()
     studyFive()
 
     val xx1: Int = num1AndNum2(100, 80, ::plus)
@@ -95,6 +104,88 @@ fun main() {
         if (s.isEmpty()) return
         println(s)
         println("lambda end")
+    }
+
+
+}
+
+fun studyDSL() {
+    val libList = dependencies {
+        implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
+        implementation("junit:junit:4.12")
+    }
+    for (lib in libList) {
+        println("lib-----$lib")
+    }
+
+    val tr = Tr()
+    tr.td {
+        "Apple"
+    }
+    tr.td {
+        "AppleGyy"
+    }
+    val str = tr.html()
+    println("lib-----str:$str")
+
+    val table = Table()
+    table.tr {
+        td {
+            "Apple"
+        }
+        td {
+            "Orr"
+        }
+    }
+    table.tr {
+        td {
+            "Apple"
+        }
+        td {
+            "Orr"
+        }
+    }
+
+
+    val table1 = table {
+        tr {
+            td {
+                "Apple"
+            }
+            td {
+                "Orr"
+            }
+            td {
+                "Occ"
+            }
+        }
+        tr {
+            td {
+                "Apple2"
+            }
+            td {
+                "Orr2"
+            }
+            td {
+                "Occ2"
+            }
+        }
+    }
+    println("lib-----table1:$table1")
+
+
+    val table2 = table {
+        repeat(2) {
+            tr {
+                val fruits = listOf("APPle")
+                for (fruit in fruits) {
+                    td {
+                        fruit
+                    }
+                }
+            }
+        }
+        println(html())
     }
 
 
