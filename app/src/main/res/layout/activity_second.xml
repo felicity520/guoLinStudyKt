@@ -6,6 +6,31 @@
     android:layout_height="match_parent"
     tools:context=".activity.SecondActivity">
 
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/my_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/colorPrimary"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                app:popupTheme="@style/Theme.AppCompat.Light" />
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="240dp"
+            android:layout_gravity="start"
+            android:text="按钮2" />
+    </androidx.drawerlayout.widget.DrawerLayout>
+
     <TextView
         android:id="@+id/button2"
         android:layout_width="wrap_content"
