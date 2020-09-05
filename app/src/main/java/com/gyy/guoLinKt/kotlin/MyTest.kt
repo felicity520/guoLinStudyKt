@@ -3,9 +3,9 @@ package com.gyy.guoLinKt.kotlin
 import com.gyy.guoLinKt.bean.Table
 import com.gyy.guoLinKt.bean.Tr
 import com.gyy.guoLinKt.bean.dependencies
+import com.gyy.guoLinKt.bean.table
 import com.gyy.guoLinKt.kotlin.Util.doAction1
 import kotlin.math.max
-import com.gyy.guoLinKt.bean.table
 
 fun main() {
 
@@ -88,7 +88,6 @@ fun main() {
 
     println("xx1 is $xx1,xx2 is $xx2,xx3 is $xx3")
 
-
     val stringBuilder = StringBuilder().build {
         append("aaa")
     }
@@ -105,7 +104,6 @@ fun main() {
         println(s)
         println("lambda end")
     }
-
 
 }
 
@@ -206,11 +204,25 @@ fun studyInfix() {
     val list1 = listOf("Apple", "Banana", "Orange")
     val result3 = list1 has "Banana"
 
-    val map = mapOf("Apple" with 1, "Banana" with 2, "with" to 3)
+    val map = mapOf("Apple" with 1, "xxx" to 3, "Banana" with 4)
+    val map1 = mapOf("Apple" to 1, "Banana" to 2, "gyy" to 3)
+
+    //集合在kotlin中可以相加
+    val map2 = map + map1
+    for ((fruit, number) in map2) {
+        println("---- fruit = $fruit, number = $number")
+    }
     for ((fruit, number) in map)
         println("fruit = $fruit, number = $number")
 
     println("result-----:$result----result1:$result1-----result3:$result3")
+
+
+    val numbersMap = mapOf("one" to 1, "two" to 2, "three" to 3)
+
+    // plus (+)
+    println(numbersMap + Pair("four", 4)) // {one=1, two=2, three=3, four=4}
+    println(numbersMap + Pair("one", 5)) // {one=10, two=2, three=3}
 }
 
 inline fun runRunnable(crossinline block: () -> Unit) {
@@ -252,6 +264,11 @@ fun studyFive() {
     println("xxx is $xxx,xxy is $xxy,str is $str,str1 is $str1")
 
 
+//    学习运算符重载的另外一种方法
+    val s1 = Salary(10)
+    val s2 = Salary(20)
+    println(s1 + s2) // 30
+    println(s1 - s2) // -10
 }
 
 
@@ -483,6 +500,60 @@ fun studyAggregate() {
     map1.add("App" to 3)
     for ((fruit, number) in map1)
         println("guolin fruit = " + fruit + ", number = " + number)
+
+
+//在 Map 集合中，可以使用 withDefault 设置一个默认值，当键不在 Map 集合中，通过 getValue 返回默认值。
+    val mapDefault = mapOf(
+        "java" to 1,
+        "kotlin" to 2,
+        "python" to 3
+    ).withDefault { "?" }
+
+    println(mapDefault.getValue("java")) // 1
+    println(mapDefault.getValue("kotlin")) // 2
+    println(mapDefault.getValue("c++")) // ?
+
+    val newMap = mapDefault + mapOf("python" to 3)
+    //println(newMap.getValue("c++")) // 调用 getValue 时抛出异常，异常信息：Key c++ is missing in the map.
+
+
+    // 传统的做法
+    val age = -1;
+    if (age <= 0) {
+        //throw IllegalArgumentException("age must  not be negative")
+    }
+
+//    因为会报错，所以注释掉了。以后尽量使用require和checkNotNull来判断
+    // 使用 require 去检查
+    //require(age > 0) { "age must be negative" }
+
+    // 使用 checkNotNull 检查
+    val name: String? = null
+//    checkNotNull(name) {
+//        "name must not be null"
+//    }
+
+    //调用 T.also 函数返回的是调用者本身。
+    //在使用之前可以进行自我操作。
+    //说明：也就是说 b.also { b = a } 会先将 a 的值 (1) 赋值给 b，此时 b 的值为 1，然后将 b 原始的值
+    //（2）赋值给 a，此时 a 的值为 2，实现交换两个变量的目的。
+    var a = 1
+    var b = 2
+    // Kotlin
+    a = b.also { b = a }
+    println("a = $a b = $b") // a = 2 b = 1
+
+
+    // 使用扩展函数重写 contains 操作符
+    operator fun Regex.contains(text: CharSequence): Boolean {
+        return this.containsMatchIn(text)
+    }
+
+    // 结合着 in 和 when（任意类型的） 一起使用
+    when ("0") {
+        in Regex("[0–9]") -> println("contains a number")
+        in Regex("[a-zA-Z]") -> println("contains a letter")
+    }
 }
 
 //学习函数式API
