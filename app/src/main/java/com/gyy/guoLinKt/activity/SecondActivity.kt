@@ -1,16 +1,22 @@
 package com.gyy.guoLinKt.activity
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.core.view.GravityCompat
+import androidx.recyclerview.widget.GridLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.gyy.guoLinKt.R
+import com.gyy.guoLinKt.adapter.FruitAdapter
+import com.gyy.guoLinKt.adapter.FruitAdapterCard
+import com.gyy.guoLinKt.bean.Fruit
 import com.gyy.guoLinKt.kotlin.showToast
 import kotlinx.android.synthetic.main.activity_second.*
+import kotlin.concurrent.thread
 
 /***
  * 1、学习Material Design
@@ -20,6 +26,21 @@ import kotlinx.android.synthetic.main.activity_second.*
  * 5、回传到上一个activity的数据setResult
  */
 class SecondActivity : AppCompatActivity() {
+
+    val fruits = mutableListOf(
+        Fruit("Apple", R.drawable.apple),
+        Fruit("Banana", R.drawable.banana),
+        Fruit("Orange", R.drawable.orange),
+        Fruit("Watermelon", R.drawable.watermelon),
+        Fruit("Pear", R.drawable.pear),
+        Fruit("Grape", R.drawable.grape),
+        Fruit("Pineapple", R.drawable.pineapple),
+        Fruit("Strawberry", R.drawable.strawberry),
+        Fruit("Cherry", R.drawable.cherry),
+        Fruit("Mango", R.drawable.mango)
+    )
+
+    val fruitList = ArrayList<Fruit>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +53,45 @@ class SecondActivity : AppCompatActivity() {
             it.setHomeAsUpIndicator(R.drawable.ic_menu)
         }
 
+//        学习NavigationView,就是滑动菜单的内容
+        val headerView = nav.getHeaderView(0)
+        headerView.setOnClickListener {
+            Toast.makeText(this, "这里是头部", Toast.LENGTH_SHORT).show()
+        }
+        nav.setCheckedItem(R.id.navCall)
+        nav.setNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.navFriends -> "navFriends".showToast()
+                R.id.navMail -> "navMail".showToast()
+                R.id.navTask -> "navTask".showToast()
+            }
+//            drawerLayout.closeDrawers()
+            true
+        }
+
+        //学习悬浮按钮
+        fab.setOnClickListener {
+//            "fab".showToast()
+            Snackbar.make(it, "Data deleted", Snackbar.LENGTH_SHORT)
+                .setAction("Undo") {
+                    //撤销所做的事情
+                    "Data restored".showToast()
+                }
+                .show()
+        }
+
+//        初始化卡片布局用到的RV
+        initFruits()
+        val layoutManager = GridLayoutManager(this, 2)
+        recyclerView.layoutManager = layoutManager
+        val adapter = FruitAdapterCard(this, fruitList)
+        recyclerView.adapter = adapter
+        swipeRefresh.setColorSchemeResources(R.color.colorPrimary)
+        swipeRefresh.setOnRefreshListener {
+            refreshFruits(adapter)
+        }
+
+
 //        val keyvalue = intent.getStringExtra("KEY")
 //        Log.e("gyy", "keyvalue is $keyvalue")
 
@@ -40,13 +100,33 @@ class SecondActivity : AppCompatActivity() {
 //        val fruit = intent.getParcelableExtra("serial_data") as Fruit
 //        Log.e(TAG, "onCreate: fruit:${fruit.name}")
 
-        button2.setOnClickListener {
-            val intent = Intent()
-            intent.putExtra("BACK_DATA", "IT IS BACK DATA")
-            setResult(Activity.RESULT_OK, intent)
-            finish()
-        }
+//        回传到上一个activity的数据setResult
+//        button2.setOnClickListener {
+//            val intent = Intent()
+//            intent.putExtra("BACK_DATA", "IT IS BACK DATA")
+//            setResult(Activity.RESULT_OK, intent)
+//            finish()
+//        }
 
+    }
+
+    private fun refreshFruits(adapter: FruitAdapterCard) {
+        thread {
+            Thread.sleep(2000)
+            runOnUiThread {
+                initFruits()
+                adapter.notifyDataSetChanged()
+                swipeRefresh.isRefreshing = false
+            }
+        }
+    }
+
+    private fun initFruits() {
+        fruitList.clear()
+        repeat(50) {
+            val index = (0 until fruits.size).random()
+            fruitList.add(fruits[index])
+        }
     }
 
 

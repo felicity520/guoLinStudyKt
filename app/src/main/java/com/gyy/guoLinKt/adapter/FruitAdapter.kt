@@ -48,3 +48,4 @@ class FruitAdapter(val activity: Activity, val resourceId: Int, val data: List<F
 }
 
 
+

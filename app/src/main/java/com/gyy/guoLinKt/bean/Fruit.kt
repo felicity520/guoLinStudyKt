@@ -8,5 +8,8 @@ import java.io.Serializable
 //}
 
 @Parcelize
-class Fruit(val name: String, val fruitImage: Int) : Parcelable {
-}
+//class Fruit(val name: String, val fruitImage: Int) : Parcelable {
+//}
+
+
+class Fruit(val name: String, val fruitImage: Int) : Parcelable {}
