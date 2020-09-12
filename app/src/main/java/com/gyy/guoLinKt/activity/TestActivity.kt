@@ -182,10 +182,10 @@ class TestActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun studySerialize() {
-        val fruit = Fruit("ping_gyy", 25)
-        val intent = Intent(this, SecondActivity::class.java)
-        intent.putExtra("serial_data", fruit)
-        startActivity(intent)
+//        val fruit = Fruit("ping_gyy", 25)
+//        val intent = Intent(this, SecondActivity::class.java)
+//        intent.putExtra("serial_data", fruit)
+//        startActivity(intent)
     }
 
     private fun studyWorkManager() {

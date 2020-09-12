@@ -86,6 +86,7 @@ class SecondActivity : AppCompatActivity() {
         recyclerView.layoutManager = layoutManager
         val adapter = FruitAdapterCard(this, fruitList)
         recyclerView.adapter = adapter
+        //下拉刷新功能
         swipeRefresh.setColorSchemeResources(R.color.colorPrimary)
         swipeRefresh.setOnRefreshListener {
             refreshFruits(adapter)
@@ -146,6 +147,9 @@ class SecondActivity : AppCompatActivity() {
     }
 
     companion object {
+        const val FRUIT_NAME = "fruit_name"
+        const val FRUIT_IMAGE_ID = "fruit_image_id"
+
         private const val TAG = "SecondActivity"
 
         fun actionStart(context: Context, data1: String, data2: String) {

@@ -118,11 +118,13 @@
             <!-- </intent-filter> -->
         </activity>
         <activity android:name=".activity.BaseActivity" />
-<!--        <activity-->
-<!--            android:name=".activity.SecondActivity"-->
-<!--            android:theme="@style/Theme.AppCompat.Dialog" /> -->
+        <!--        <activity-->
+        <!--            android:name=".activity.SecondActivity"-->
+        <!--            android:theme="@style/Theme.AppCompat.Dialog" /> -->
         <!-- 响应HTTPS -->
-        <activity android:name=".activity.ThridActivity">
+        <activity
+            android:name=".activity.FruitActivity"
+            android:theme="@style/FruitActivityTheme">
             <intent-filter tools:ignore="AppLinkUrlError">
                 <action android:name="android.intent.action.VIEW" />
 

@@ -1,5 +1,7 @@
 package com.gyy.guoLinKt.kotlin
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import com.gyy.guoLinKt.bean.Table
 import com.gyy.guoLinKt.bean.Tr
 import com.gyy.guoLinKt.bean.dependencies
@@ -7,6 +9,7 @@ import com.gyy.guoLinKt.bean.table
 import com.gyy.guoLinKt.kotlin.Util.doAction1
 import kotlin.math.max
 
+@RequiresApi(Build.VERSION_CODES.N)
 fun main() {
 
     val json = "{\"name\":\"Tom\",\"age\":\"25\"}"
@@ -93,6 +96,7 @@ fun main() {
     }
     println("xx1 is ${stringBuilder.toString()}")
 
+    studyMax()
     studyT()
     studyInfix()
 
@@ -105,6 +109,21 @@ fun main() {
         println("lambda end")
     }
 
+}
+
+@RequiresApi(Build.VERSION_CODES.N)
+fun studyMax() {
+    val a = 1
+    val b = 4
+    val c = 7
+//    val intMax = max(a, b, c)
+//    println("intMax is $intMax\n")
+
+    val largest = max2(a, b, c)
+    println("largest $largest")
+
+//    val intMax1 = max(1.1, 4.2, 7.1)
+//    println("intMax1 is $intMax1")
 }
 
 fun studyDSL() {
