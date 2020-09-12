@@ -150,6 +150,8 @@ class TestActivity : BaseActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_test)
 
+        "MY gyy 111".showToast()
+
         supportActionBar?.hide()  //隐藏自带的标题栏
         Util.doAction3()
 
