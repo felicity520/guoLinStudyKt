@@ -8,10 +8,18 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.core.content.edit
+import com.google.android.material.shape.AbsoluteCornerSize
+import com.google.android.material.shape.CornerFamily
+import com.google.android.material.shape.RelativeCornerSize
+import com.google.android.material.shape.ShapeAppearanceModel
 import com.gyy.guoLinKt.R
 import com.gyy.guoLinKt.kotlin.open
+import com.gyy.guoLinKt.kotlin.studyPublic
 import kotlinx.android.synthetic.main.activity_login.*
 
+/**
+ *学习material1.20中的控件
+ */
 class LoginActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -85,6 +93,25 @@ class LoginActivity : BaseActivity() {
 
         cancelNotification()
 
+
+        studyMaterial()
+    }
+
+    private fun studyMaterial() {
+        imageView?.shapeAppearanceModel = ShapeAppearanceModel.builder()
+            .setAllCornerSizes(ShapeAppearanceModel.PILL)
+            .build()
+
+
+//            .setTopLeftCorner(CornerFamily.CUT, RelativeCornerSize(0.3f))
+//            .setTopRightCorner(CornerFamily.CUT, RelativeCornerSize(0.3f))
+//            .setBottomRightCorner(CornerFamily.CUT, RelativeCornerSize(0.3f))
+//            .setBottomLeftCorner(CornerFamily.CUT, RelativeCornerSize(0.3f))
+//            .setAllCornerSizes(ShapeAppearanceModel.PILL)
+//            .setTopLeftCornerSize(20f)
+//            .setTopRightCornerSize(RelativeCornerSize(0.5f))
+//            .setBottomLeftCornerSize(10f)
+//            .setBottomRightCornerSize(AbsoluteCornerSize(30f))
     }
 
     private fun cancelNotification() {

@@ -65,15 +65,15 @@
         <!-- <action android:name="android.intent.action.ForceofflineReceiver" /> -->
         <!-- </intent-filter> -->
         <!-- </receiver> -->
-        <activity android:name=".activity.LoginActivity">
+        <!--        <activity android:name=".activity.LoginActivity">-->
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="android.intent.action.MAIN" /> -->
 
 
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
-        </activity>
+        <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+        <!-- </intent-filter> -->
+        <!--        </activity>-->
 
         <receiver
             android:name=".brocast.MyReceiver2"
@@ -102,8 +102,9 @@
 
         <activity android:name=".activity.NewsContentActivity" />
         <activity
-            android:name=".activity.SecondActivity"
-            android:label="TestActivity">
+            android:name=".activity.LoginActivity"
+            android:label="TestActivity"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
