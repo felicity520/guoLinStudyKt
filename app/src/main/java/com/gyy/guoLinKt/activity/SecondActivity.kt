@@ -2,8 +2,10 @@ package com.gyy.guoLinKt.activity
 
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -11,6 +13,7 @@ import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.gyy.guoLinKt.R
+import com.gyy.guoLinKt.activity.App.Companion.context
 import com.gyy.guoLinKt.adapter.FruitAdapter
 import com.gyy.guoLinKt.adapter.FruitAdapterCard
 import com.gyy.guoLinKt.bean.Fruit
@@ -45,6 +48,9 @@ class SecondActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_second)
+
+        val currentTheme = isDarkTheme()
+        Log.e(TAG, "onCreate currentTheme $currentTheme: ")
 
 //        加上这句toolbar才会显示出来,加载id
         setSupportActionBar(my_toolbar)
@@ -86,6 +92,7 @@ class SecondActivity : AppCompatActivity() {
         recyclerView.layoutManager = layoutManager
         val adapter = FruitAdapterCard(this, fruitList)
         recyclerView.adapter = adapter
+        //下拉刷新功能
         swipeRefresh.setColorSchemeResources(R.color.colorPrimary)
         swipeRefresh.setOnRefreshListener {
             refreshFruits(adapter)
@@ -107,6 +114,15 @@ class SecondActivity : AppCompatActivity() {
 //            setResult(Activity.RESULT_OK, intent)
 //            finish()
 //        }
+
+    }
+
+    /**
+     * 可以判断当前系统是否是深色主题
+     */
+    private fun isDarkTheme(): Boolean {
+        val flag = context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+        return flag == Configuration.UI_MODE_NIGHT_YES
 
     }
 
@@ -146,6 +162,9 @@ class SecondActivity : AppCompatActivity() {
     }
 
     companion object {
+        const val FRUIT_NAME = "fruit_name"
+        const val FRUIT_IMAGE_ID = "fruit_image_id"
+
         private const val TAG = "SecondActivity"
 
         fun actionStart(context: Context, data1: String, data2: String) {

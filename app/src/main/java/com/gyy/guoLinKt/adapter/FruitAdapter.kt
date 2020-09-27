@@ -39,7 +39,7 @@ class FruitAdapter(val activity: Activity, val resourceId: Int, val data: List<F
 
         val fruit = getItem(position)
         if (fruit != null) {
-            viewHolder.iamgeView.setImageResource(fruit.fruitImage)
+            viewHolder.iamgeView.setImageResource(fruit.imageId)
             viewHolder.textView.setText(fruit.name)
         }
         return view

@@ -79,4 +79,67 @@
         app:layout_constraintVertical_bias="0.125"
         tools:layout_editor_absoluteX="16dp" />
 
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_send"
+        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:padding="0dp"
+        android:text="@string/app_name"
+        android:textColor="@color/white"
+        android:textSize="12dp"
+        android:visibility="gone"
+        app:backgroundTint="@color/colorPrimaryDark"
+        app:backgroundTintMode="add"
+        app:cornerRadius="5dp"
+        app:icon="@mipmap/ic_launcher"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_restore"
+        app:rippleColor="@color/blue"
+        app:strokeColor="@color/colorAccent"
+        app:strokeWidth="5dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn1"
+        android:layout_width="280dp"
+        android:layout_height="50dp"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:text="验证insetTop和insetBottom"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_send" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imageView"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="3dp"
+        android:background="@drawable/orange"
+        android:padding="14dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn1"
+        app:shapeAppearance="@style/StyleShapeAppearanceImage"
+        app:strokeColor="@color/colorAccent"
+        app:strokeWidth="14dp" />
+
+    <com.google.android.material.slider.Slider
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stepSize="0.1"
+        android:valueFrom="0.2"
+        android:valueTo="0.8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

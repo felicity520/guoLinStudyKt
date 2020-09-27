@@ -50,7 +50,7 @@ class RvFruitAdapter(val fruitlist: List<Fruit>) :
      * 在每个子项被滚动到屏幕上的时候调用
      */
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.fruitImage.setImageResource(fruitlist[position].fruitImage)
+        holder.fruitImage.setImageResource(fruitlist[position].imageId)
         holder.fruitName.setText(fruitlist[position].name)
     }
 

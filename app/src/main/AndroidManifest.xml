@@ -65,15 +65,9 @@
         <!-- <action android:name="android.intent.action.ForceofflineReceiver" /> -->
         <!-- </intent-filter> -->
         <!-- </receiver> -->
-        <activity android:name=".activity.LoginActivity">
-
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
-        </activity>
+        <activity
+            android:name=".activity.LoginActivity"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
 
         <receiver
             android:name=".brocast.MyReceiver2"
@@ -104,6 +98,7 @@
         <activity
             android:name=".activity.TestActivity"
             android:label="TestActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -118,11 +113,13 @@
             <!-- </intent-filter> -->
         </activity>
         <activity android:name=".activity.BaseActivity" />
-<!--        <activity-->
-<!--            android:name=".activity.SecondActivity"-->
-<!--            android:theme="@style/Theme.AppCompat.Dialog" /> -->
+        <!--        <activity-->
+        <!--            android:name=".activity.SecondActivity"-->
+        <!--            android:theme="@style/Theme.AppCompat.Dialog" /> -->
         <!-- 响应HTTPS -->
-        <activity android:name=".activity.ThridActivity">
+        <activity
+            android:name=".activity.FruitActivity"
+            android:theme="@style/FruitActivityTheme">
             <intent-filter tools:ignore="AppLinkUrlError">
                 <action android:name="android.intent.action.VIEW" />
 
