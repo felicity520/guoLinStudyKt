@@ -148,6 +148,7 @@ class TestActivity : BaseActivity(), View.OnClickListener {
     @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.e(TAG, "onCreate: -----------------------")
         setContentView(R.layout.activity_test)
 
         supportActionBar?.hide()  //隐藏自带的标题栏
@@ -178,14 +179,23 @@ class TestActivity : BaseActivity(), View.OnClickListener {
         studyRoom()
         studyWorkManager()
         studySerialize()
+        studyHandler()
 
     }
 
+    private fun studyHandler() {
+        thread {
+            Thread.sleep(2000)
+            Log.e(TAG, "studyHandler: 更新UI------------------")
+            text_handler.text = Thread.currentThread().toString()
+        }
+    }
+
     private fun studySerialize() {
-        val fruit = Fruit("ping_gyy", 25)
-        val intent = Intent(this, SecondActivity::class.java)
-        intent.putExtra("serial_data", fruit)
-        startActivity(intent)
+//        val fruit = Fruit("ping_gyy", 25)
+//        val intent = Intent(this, SecondActivity::class.java)
+//        intent.putExtra("serial_data", fruit)
+//        startActivity(intent)
     }
 
     private fun studyWorkManager() {
