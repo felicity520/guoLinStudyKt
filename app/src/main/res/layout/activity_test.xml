@@ -394,8 +394,13 @@
         android:visibility="gone" />
 
     <TextView
-        android:layout_gravity="center"
         android:id="@+id/text_handler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:visibility="gone" />
+
+    <com.gyy.guoLinKt.view.BezierView
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
