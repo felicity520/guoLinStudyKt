@@ -5,13 +5,20 @@ import javax.inject.Inject
 
 class Truck @Inject constructor(val driver: Driver) {
 
+    @BindGasEngine
     @Inject
-    lateinit var engine: Engine
+    lateinit var gasEngine: Engine
+
+    @BindElectricEngine
+    @Inject
+    lateinit var electricEngine: Engine
 
     fun deliver() {
-        engine.start()
+        gasEngine.start()
+        electricEngine.start()
         println("Truck is delivering cargo. Driven by $driver")
-        engine.shutdown()
+        gasEngine.shutdown()
+        electricEngine.shutdown()
     }
 
 }

@@ -48,11 +48,16 @@ import com.gyy.guoLinKt.viewmodel.MainViewModelFactory
 import com.gyy.guoLinKt.viewmodel.MyObserver
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_test.*
+import kotlinx.coroutines.*
+import okhttp3.OkHttpClient
+import retrofit2.Retrofit
 import java.io.*
 import java.util.EnumSet.of
 import java.util.Optional.of
 import javax.inject.Inject
 import kotlin.concurrent.thread
+import kotlin.coroutines.suspendCoroutine
+import kotlin.text.Typography.dagger
 
 /**
  * 　　　┏┓　　　┏┓
@@ -80,6 +85,17 @@ class TestActivity : BaseActivity(), View.OnClickListener {
     //Hilt相关
     @Inject
     lateinit var truck: Truck
+
+    @Inject
+    lateinit var okHttpClient: OkHttpClient
+
+    @Inject
+    lateinit var retrofit: Retrofit
+
+//    @Inject
+//    lateinit var viewModel: MyViewModel
+
+    val viewModel: MyViewModel by lazy { ViewModelProvider(this).get(MyViewModel::class.java) }
 
     //viewmodule相关
     lateinit var mainViewModule: MainViewModel
@@ -190,7 +206,34 @@ class TestActivity : BaseActivity(), View.OnClickListener {
         studySerialize()
         studyHandler()
         studyHilt()
+        studyXiechen()
 
+    }
+
+    private fun studyXiechen() {
+        val job = Job()
+        val scope = CoroutineScope(job)
+        scope.launch {
+            //具体的逻辑
+            val deferred1 = async {
+                5 + 5
+            }
+            val deferred2 = async {
+                5 + 6
+            }
+            Log.e(TAG, "${deferred1.await() + deferred2.await()}")
+
+
+            val result = withContext(Dispatchers.Default) {
+                5 + 1
+            }
+            Log.e(TAG, "$result")
+
+            suspendCoroutine {
+
+            }
+        }
+        job.cancel()
     }
 
     private fun studyHilt() {
