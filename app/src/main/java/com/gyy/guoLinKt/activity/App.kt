@@ -5,6 +5,7 @@ import android.app.Application
 import android.content.Context
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ProcessLifecycleOwner
+import dagger.hilt.android.HiltAndroidApp
 
 /**
  * @author Flywith24
@@ -12,6 +13,7 @@ import androidx.lifecycle.ProcessLifecycleOwner
  * time   9:26
  * description
  */
+@HiltAndroidApp
 class App : Application() {
 
     private val processLifecycleObserver by lazy { ProcessLifecycleObserver() }

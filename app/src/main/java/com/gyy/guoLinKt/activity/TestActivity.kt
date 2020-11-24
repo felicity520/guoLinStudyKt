@@ -46,10 +46,12 @@ import com.gyy.guoLinKt.service.MyService
 import com.gyy.guoLinKt.viewmodel.MainViewModel
 import com.gyy.guoLinKt.viewmodel.MainViewModelFactory
 import com.gyy.guoLinKt.viewmodel.MyObserver
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_test.*
 import java.io.*
 import java.util.EnumSet.of
 import java.util.Optional.of
+import javax.inject.Inject
 import kotlin.concurrent.thread
 
 /**
@@ -72,7 +74,12 @@ import kotlin.concurrent.thread
  * 　　　　　┗┻┛　┗┻┛
  * add by GYY
  */
+@AndroidEntryPoint
 class TestActivity : BaseActivity(), View.OnClickListener {
+
+    //Hilt相关
+    @Inject
+    lateinit var truck: Truck
 
     //viewmodule相关
     lateinit var mainViewModule: MainViewModel
@@ -182,7 +189,12 @@ class TestActivity : BaseActivity(), View.OnClickListener {
         studyWorkManager()
         studySerialize()
         studyHandler()
+        studyHilt()
 
+    }
+
+    private fun studyHilt() {
+        truck.deliver()
     }
 
     private fun studyHandler() {
