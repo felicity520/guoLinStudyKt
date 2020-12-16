@@ -82,6 +82,7 @@ fun main() {
     studyDSL()
     studyFive()
 
+
     val xx1: Int = num1AndNum2(100, 80, ::plus)
     val xx2 = num1AndNum2(100, 80, ::minus)
 

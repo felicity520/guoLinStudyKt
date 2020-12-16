@@ -52,12 +52,10 @@ import kotlinx.coroutines.*
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import java.io.*
-import java.util.EnumSet.of
-import java.util.Optional.of
 import javax.inject.Inject
 import kotlin.concurrent.thread
 import kotlin.coroutines.suspendCoroutine
-import kotlin.text.Typography.dagger
+import kotlin.properties.Delegates
 
 /**
  * 　　　┏┓　　　┏┓
@@ -81,6 +79,13 @@ import kotlin.text.Typography.dagger
  */
 @AndroidEntryPoint
 class TestActivity : BaseActivity(), View.OnClickListener {
+    //正确的声明
+    var int1 by Delegates.notNull<Int>()
+
+    //报错
+//    lateinit var int1: Int
+
+    lateinit var test1: String
 
     //Hilt相关
     @Inject
