@@ -50,6 +50,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_test.*
 import kotlinx.coroutines.*
 import okhttp3.OkHttpClient
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import retrofit2.Retrofit
 import java.io.*
 import javax.inject.Inject
@@ -131,6 +134,8 @@ class TestActivity : BaseActivity(), View.OnClickListener {
 
     companion object {
         const val TAG = "TestActivity"
+        private const val appkey: String = "c1f9251fc22da079"
+        private const val shouji: String = "13859110503"
     }
 
 //        listview简单示例的数据源
@@ -212,7 +217,25 @@ class TestActivity : BaseActivity(), View.OnClickListener {
         studyHandler()
         studyHilt()
         studyXiechen()
+        studyRetrofit();
 
+    }
+
+    private fun studyRetrofit() {
+        btn_tel.setOnClickListener {
+            val telService = ServiceCreator.create(TelService::class.java)
+            telService.queryPlace(Companion.appkey, Companion.shouji)
+                .enqueue(object : Callback<Tel> {
+                    override fun onFailure(call: Call<Tel>, t: Throwable) {
+                        TODO("Not yet implemented")
+                    }
+
+                    override fun onResponse(call: Call<Tel>, response: Response<Tel>) {
+                        val tel = response.body()
+                        Log.e(TAG, "onResponse city: ${tel?.result?.city.toString()}")
+                    }
+                })
+        }
     }
 
     private fun studyXiechen() {

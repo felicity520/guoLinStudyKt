@@ -401,8 +401,16 @@
         android:visibility="gone" />
 
     <com.gyy.guoLinKt.view.BezierView
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+    <Button
+        android:id="@+id/btn_tel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="查询数据" />
 
 
 </LinearLayout>
