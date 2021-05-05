@@ -80,7 +80,7 @@ import kotlin.properties.Delegates
  * 　　　　　┗┻┛　┗┻┛
  * add by GYY
  */
-@AndroidEntryPoint
+//@AndroidEntryPoint
 class TestActivity : BaseActivity(), View.OnClickListener {
     //正确的声明
     var int1 by Delegates.notNull<Int>()
@@ -91,8 +91,8 @@ class TestActivity : BaseActivity(), View.OnClickListener {
     lateinit var test1: String
 
     //Hilt相关
-    @Inject
-    lateinit var truck: Truck
+//    @Inject
+//    lateinit var truck: Truck
 
     @Inject
     lateinit var okHttpClient: OkHttpClient
@@ -215,7 +215,7 @@ class TestActivity : BaseActivity(), View.OnClickListener {
         studyWorkManager()
         studySerialize()
         studyHandler()
-        studyHilt()
+//        studyHilt()
         studyXiechen()
         studyRetrofit();
 
@@ -264,9 +264,9 @@ class TestActivity : BaseActivity(), View.OnClickListener {
         job.cancel()
     }
 
-    private fun studyHilt() {
-        truck.deliver()
-    }
+//    private fun studyHilt() {
+//        truck.deliver()
+//    }
 
     private fun studyHandler() {
         thread {

@@ -5,10 +5,13 @@ import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 
 /**
- * @author Flywith24
- * @date   2020/7/1
- * time   9:28
- * description
+ * Lifecycle.Event.ON_CREATE只会分发一次，Lifecycle.Event.ON_DESTROY不会被分发。
+ *
+ * 第一个Activity进入时，ProcessLifecycleOwner将分派Lifecycle.Event.ON_START, Lifecycle.Event.ON_RESUME。
+ * 而Lifecycle.Event.ON_PAUSE, Lifecycle.Event.ON_STOP，将在最后一个Activity退出后延迟分发。
+ * 如果由于配置更改而销毁并重新创建活动，则此延迟足以保证ProcessLifecycleOwner不会发送任何事件。
+ *
+ * 作用：监听应用程序进入前台或后台
  */
 class ProcessLifecycleObserver : DefaultLifecycleObserver {
     override fun onCreate(owner: LifecycleOwner) {

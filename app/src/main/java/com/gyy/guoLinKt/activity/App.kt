@@ -13,7 +13,7 @@ import dagger.hilt.android.HiltAndroidApp
  * time   9:26
  * description
  */
-@HiltAndroidApp
+//@HiltAndroidApp
 class App : Application() {
 
     private val processLifecycleObserver by lazy { ProcessLifecycleObserver() }
@@ -27,6 +27,7 @@ class App : Application() {
     companion object {
         @SuppressLint("StaticFieldLeak")
         lateinit var context: Context
+        //判断至少是某一状态
         val isForeground =
             ProcessLifecycleOwner.get().lifecycle.currentState.isAtLeast(
                 Lifecycle.State.STARTED
