@@ -55,6 +55,7 @@ class LivedataActivity : AppCompatActivity() {
             Log.e(TAG, " mapViewModule 111------$it")
 
         })
+        testViewModule.mutableLiveData.value = "222"
 
         testViewModule.getMap2Data().observe(this, Observer {
             Log.e(TAG, " getMap2Data------$it")

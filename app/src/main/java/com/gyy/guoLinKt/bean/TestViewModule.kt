@@ -24,7 +24,7 @@ class TestViewModule : ViewModel() {
      * LiveData是一个抽象类，可被继承，但不可通过new创建
      * MutableLiveData是LiveData的子类，继承了LiveData
      */
-    private val mutableLiveData: MutableLiveData<String> = MutableLiveData("111")
+    public val mutableLiveData: MutableLiveData<String> = MutableLiveData("111")
 
     //map的方法一
     private val mapLiveData: LiveData<Int> = Transformations.map(mutableLiveData) {
